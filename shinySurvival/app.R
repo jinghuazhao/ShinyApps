@@ -1,0 +1,92 @@
+
+
+library(shiny)
+library(shinydashboard)
+library(survival)
+
+ui <- dashboardPage(
+  dashboardHeader(title = "shinySurvival"),
+  dashboardSidebar(
+    sidebarMenu(
+      menuItem("Upload-data", tabName = "Upload-data", icon = icon("dashboard")),
+      menuItem("Kaplan-Meier", tabName = "Kaplan-Meier", icon = icon("th")),
+      menuItem("Download-data", tabName = "Download-data", icon = icon("dashboard")),
+      menuItem("Generate-report", tabName = "Generate-report", icon = icon("dashboard"))
+    )
+  ),
+  dashboardBody(
+    tabItems(
+      tabItem(tabName = "Upload-data",
+        h2("Upload a csv or tsv file"),
+        fluidRow(
+          fileInput("file", NULL, accept = c(".csv", ".tsv")),
+          tableOutput("files"),
+          tableOutput("preview")
+        )
+      ),
+      tabItem(tabName = "Kaplan-Meier",
+        h2("Kaplan-Meier plot"),
+        plotOutput("km")
+      ),
+      tabItem(tabName = "Download-data",
+        h2("Download a tsv version of the data"),
+        downloadButton("download", "Download")
+      ),
+      tabItem(tabName = "Generate-report",
+        h2("Generate analysis report"),
+        downloadButton("report", "Generate report")
+      )
+     )
+  )
+)
+
+server <- function(input, output) {
+  data <- reactive({
+    req(input$file)
+    ext <- tools::file_ext(input$file$name)
+    switch(ext,
+      csv = vroom::vroom(input$file$datapath, delim = ","),
+      tsv = vroom::vroom(input$file$datapath, delim = "\t"),
+      validate("Invalid file; Please upload a .csv or .tsv file")
+    )
+  })
+  library(survival)
+  output$km <- renderPlot({plot(survfit(Surv(time, status) ~ 1, data = data()), xlab = "Days",  ylab = "Overall survival probability")})
+  output$preview <- renderTable({
+    head(data())
+  })
+  output$download <- downloadHandler(
+    filename = function() {
+      paste0(tools::file_path_sans_ext(input$file), ".tsv")
+    },
+    content = function(file) {
+      vroom::vroom_write(data(), file)
+    }
+  )
+  output$report <- downloadHandler(
+    # For html output, change this to ".html"
+    filename = function() {
+      paste0(tools::file_path_sans_ext(input$file), ".pdf")
+    },
+    content = function(file) {
+      # Copy the report file to a temporary directory before processing it, in
+      # case we don't have write permissions to the current working dir (which
+      # can happen when deployed).
+      tempReport <- file.path(tempdir(), "report.Rmd")
+      file.copy("report.Rmd", tempReport, overwrite = TRUE)
+
+      # Set up parameters to pass to Rmd document
+      params <- list(data=data())
+      # Knit the document, passing in the `params` list, and eval it in a
+      # child of the global environment (this isolates the code in the document
+      # from the code in this app).
+      rmarkdown::render(tempReport, output_file = file,
+         params = params,
+         envir = new.env(parent = globalenv())
+      )
+    }
+  )
+}
+
+shinyApp(ui, server)
+
