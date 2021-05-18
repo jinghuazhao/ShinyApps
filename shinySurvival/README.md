@@ -1,12 +1,8 @@
 # shinySurvival
 
-<br>
-
 This is a very early attempt to seed Shiny projects via the familiar survival analysis.
 
 It envisages a scenario that an end-user can upload his/her own data for a survival analysis and download the analysis report.
-
-<br>
 
 ## Contents
 
