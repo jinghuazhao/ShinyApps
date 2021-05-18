@@ -31,4 +31,4 @@ This is an option to download a file in .tsv format.
 
 This is a PDF file containing the commands and plots.
 
-The source code of this is available from https://github.com/jinghuazhao/ShinyApps/shinySurvival.
+The source code of this is available from https://github.com/jinghuazhao/ShinyApps/tree/main/shinySurvival.
