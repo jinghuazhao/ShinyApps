@@ -3,11 +3,16 @@ source("init.R")
 ui <- dashboardPage(
   title = "shinySurvival",
   dashboardHeader(title = tags$a(href='https://github.com/jinghuazhao/ShinyApps', target = '_blank',
-                                 tags$img(src=paste0("bees.svg"), height = "80%", width = "auto", align = "middle"))
+                                 tags$img(src=paste0("bees.svg"), height = "70%", width = "auto", align = "middle")),
+                  dropdownMenu(type = "messages",
+                               tags$li(HTML('<li><a href="https://github.com/jinghuazhao/ShinyApps" target="_blank"><i class="fa fa-code-branch"></i><h4>GitHub</h4></a></li>')),
+                               tags$li(HTML('<li><a href="mailto:jinghuazhao@hotmail.com" target="_blank"><i class="fa fa-question"></i><h4>email</h4></a></li>'))
+
+                  )
                  ),
   dashboardSidebar(
     sidebarMenu(
-      menuItem("Welcome", tabName = "landing", icon = icon("book-open")),
+      menuItem("Home", tabName = "landing", icon = icon("home")),
       menuItem("Upload-data", tabName = "Upload-data", icon = icon("dashboard")),
       menuItem("Kaplan-Meier", tabName = "Kaplan-Meier", icon = icon("th")),
       menuItem("Download-data", tabName = "Download-data", icon = icon("dashboard")),
