@@ -1,0 +1,11 @@
+name: shinyapps
+title:
+username:
+account: jinghuazhao
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4139905
+bundleId: 4604473
+url: https://jinghuazhao.shinyapps.io/shinyapps/
+when: 1621190876.38002
+lastSyncTime: 1621190876.38004
