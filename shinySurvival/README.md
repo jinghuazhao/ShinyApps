@@ -17,23 +17,15 @@ It envisages a scenario that an end-user can upload his/her own data for a survi
 
 ## Upload data
 
-<br>
-
 This is a local file in .csv or .tsv format.
-
-<br>
 
 ## Kaplan-meier curve
 
 Once the data is uploaded, this gives a Kaplan-Meier curve.
 
-<br>
-
 ## Download data
 
 This is an option to download a file in .tsv format.
-
-<br>
 
 ## Generate report
 
