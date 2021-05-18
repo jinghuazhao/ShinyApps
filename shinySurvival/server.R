@@ -1,45 +1,3 @@
-
-
-library(shiny)
-library(shinydashboard)
-library(survival)
-
-ui <- dashboardPage(
-  dashboardHeader(title = "shinySurvival"),
-  dashboardSidebar(
-    sidebarMenu(
-      menuItem("Upload-data", tabName = "Upload-data", icon = icon("dashboard")),
-      menuItem("Kaplan-Meier", tabName = "Kaplan-Meier", icon = icon("th")),
-      menuItem("Download-data", tabName = "Download-data", icon = icon("dashboard")),
-      menuItem("Generate-report", tabName = "Generate-report", icon = icon("dashboard"))
-    )
-  ),
-  dashboardBody(
-    tabItems(
-      tabItem(tabName = "Upload-data",
-        h2("Upload a csv or tsv file"),
-        fluidRow(
-          fileInput("file", NULL, accept = c(".csv", ".tsv")),
-          tableOutput("files"),
-          tableOutput("preview")
-        )
-      ),
-      tabItem(tabName = "Kaplan-Meier",
-        h2("Kaplan-Meier plot"),
-        plotOutput("km")
-      ),
-      tabItem(tabName = "Download-data",
-        h2("Download a tsv version of the data"),
-        downloadButton("download", "Download")
-      ),
-      tabItem(tabName = "Generate-report",
-        h2("Generate analysis report"),
-        downloadButton("report", "Generate report")
-      )
-     )
-  )
-)
-
 server <- function(input, output) {
   data <- reactive({
     req(input$file)
@@ -87,6 +45,3 @@ server <- function(input, output) {
     }
   )
 }
-
-shinyApp(ui, server)
-
