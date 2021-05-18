@@ -17,10 +17,12 @@ params:
 
 ```{r}
 user_data <- with(params,data)
-knitr::kable(head(user_data),caption="The lung data R/survival package")
+knitr::kable(head(user_data),caption="The lung data from R/survival package")
 ```
 
-## A Kaplan-Meier curve.
+## The Kaplan-Meier curve
+
+The overal survival probability can be seen from the Kaplan-Meier curve.
 
 ```{r km, fig.height=7, fig.width=7}
 library(survival)
