@@ -37,9 +37,6 @@ plot(survfit(Surv(time, status) ~ 1, data = user_data),
 ```{r cox, fig.height=7, fig.width=7}
 coxfit <- coxph(Surv(time, status) ~ age + sex + wt.loss, data = user_data)
 
-# Survival curves by sex with adjustment for age and wt.loss
-# A new data frame is generated containing two rows, one for each value of sex;
-# the other covariates are fixed to their average values
 new_df <- with(user_data,
                data.frame(sex = c(1, 2),
                           age = rep(mean(age, na.rm = TRUE), 2),
