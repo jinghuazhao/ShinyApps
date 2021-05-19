@@ -23,7 +23,7 @@ ui <- dashboardPage(
   dashboardBody(
     tabItems(
       tabItem(tabName = "landing",
-         div(class = "jumbotron", HTML("<center><h1>Survival analysis using Shiny</h1></center>")),
+         div(class = "jumbotron", HTML("<center><h1>Shiny for Survival analysis</h1></center>")),
          fluidRow(
             fluidRow(div(class = "col-sm-12", 
                          div(class = "box box-primary", style = "padding-right: 5%; padding-left: 5%; font-size:100%", NULL,
