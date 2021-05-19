@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+git add .gitignore
+git commit -m ".gitignore"
 git add shinyapps
 git commit -m "shinyapps"
 git add shinySurvival
