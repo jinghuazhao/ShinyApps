@@ -5,7 +5,7 @@ It envisages a scenario that an end-user can upload his/her own data for a survi
 
 This is a local file in .csv or .tsv format.
 
-### Kaplan-meier curve
+### Kaplan-Meier curve
 
 Once the data is uploaded, this gives a Kaplan-Meier curve.
 

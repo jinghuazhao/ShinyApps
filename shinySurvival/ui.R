@@ -13,10 +13,10 @@ ui <- dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       menuItem("Home", tabName = "landing", icon = icon("home")),
-      menuItem("Upload-data", tabName = "Upload-data", icon = icon("dashboard")),
+      menuItem("Upload-data", tabName = "Upload-data", icon = icon("upload")),
       menuItem("Kaplan-Meier", tabName = "Kaplan-Meier", icon = icon("th")),
-      menuItem("Download-data", tabName = "Download-data", icon = icon("dashboard")),
-      menuItem("Generate-report", tabName = "Generate-report", icon = icon("dashboard"))
+      menuItem("Download-data", tabName = "Download-data", icon = icon("download")),
+      menuItem("Generate-report", tabName = "Generate-report", icon = icon("book-open"))
     )
   ),
   dashboardBody(
