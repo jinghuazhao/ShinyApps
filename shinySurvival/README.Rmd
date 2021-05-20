@@ -57,4 +57,5 @@ library(survminer)
 fit <- survfit(coxfit, newdata = new_df)
 ggsurvplot(fit, conf.int = TRUE, palette = "Dark2", censor = FALSE,
            surv.median.line = "hv", data=lung)
+unlink("lung.csv")
 ```
