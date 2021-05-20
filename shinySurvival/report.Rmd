@@ -3,6 +3,9 @@ title: "Analysis report"
 output: pdf_document
 params:
   data: NA
+  status: NA
+  time: NA
+  covariates: NA
 ---
 
 ## Notes
@@ -12,6 +15,8 @@ params:
 
 ```{r}
 user_data <- with(params,data)
+km_f <- with(params, paste("Surv(", time, ",", status, ") ~ 1"))
+cox_f <- with(params, paste("Surv(", time, ",", status, ") ~ ", covariates))
 ```
 
 ## The data structure
@@ -26,16 +31,16 @@ The overal survival probability can be seen from the Kaplan-Meier curve.
 
 ```{r km, fig.height=6.5, fig.width=6.5}
 library(survival)
-plot(survfit(Surv(time, status) ~ 1, data = user_data),
-             xlab = "Days",
-             ylab = "Overall survival probability"
+plot(survfit(as.formula(km_f), data = user_data),
+             xlab = "Time",
+             ylab = "Overall survival probability", main=km_f
 )
 ```
 
 ## The Cox model
 
 ```{r cox, fig.height=6.5, fig.width=6.5, message=FALSE}
-coxfit <- coxph(Surv(time, status) ~ age + sex + wt.loss, data = user_data)
+coxfit <- coxph(as.formula(cox_f), data = user_data)
 
 new_df <- with(user_data,
                data.frame(sex = c(1, 2),
@@ -48,6 +53,6 @@ new_df
 library(survminer)
 fit <- survfit(coxfit, newdata = new_df)
 ggsurvplot(fit, conf.int = TRUE, palette = "Dark2", censor = FALSE,
-           surv.median.line = "hv", data=user_data)
+           surv.median.line = "hv", data=user_data) + ggtitle(cox_f)
 
 ```

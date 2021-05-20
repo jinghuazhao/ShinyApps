@@ -48,7 +48,7 @@ ui <- dashboardPage(
         selectInput("covariates", "Covariates:",
                     c("Age" = "age",
                       "Sex" = "sex",
-                      "Weight loss" = "wt.loss"),  multiple=TRUE),
+                      "Weight loss" = "wt.loss"), selected=c("sex", "age", "wt.loss"), multiple=TRUE),
         h3(textOutput("caption")),
         plotOutput("km")
       ),

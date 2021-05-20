@@ -8,6 +8,9 @@ server <- function(input, output) {
       validate("Invalid file; Please upload a .csv or .tsv file")
     )
   })
+  status <- reactive({paste(input$outcome)})
+  time <- reactive({paste(input$time)})
+  covariates <- reactive({paste(input$covariates,collapse=" + ")})
   formulaText <- reactive({
     paste("Surv(",input$time, ",", input$outcome, ") ~ 1")
   })
@@ -39,7 +42,7 @@ server <- function(input, output) {
       file.copy("report.Rmd", tempReport, overwrite = TRUE)
 
       # Set up parameters to pass to Rmd document
-      params <- list(data=data())
+      params <- list(data=data(),status=status(),time=time(),covariates=covariates())
       # Knit the document, passing in the `params` list, and eval it in a
       # child of the global environment (this isolates the code in the document
       # from the code in this app).
