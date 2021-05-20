@@ -42,17 +42,19 @@ plot(survfit(as.formula(km_f), data = user_data),
 ```{r cox, fig.height=6.5, fig.width=6.5, message=FALSE}
 coxfit <- coxph(as.formula(cox_f), data = user_data)
 
-new_df <- with(user_data,
-               data.frame(sex = c(1, 2),
-                          age = rep(mean(age, na.rm = TRUE), 2),
-                          wt.loss = rep(mean(wt.loss, na.rm = TRUE), 2)
-               )
-)
-new_df
+if (grepl("sex|age", covariates))
+{
+  new_df <- with(user_data,
+                 data.frame(sex = c(1, 2),
+                            age = rep(mean(age, na.rm = TRUE), 2),
+                            wt.loss = rep(mean(wt.loss, na.rm = TRUE), 2)
+                 )
+  )
+  new_df
 
-library(survminer)
-fit <- survfit(coxfit, newdata = new_df)
-ggsurvplot(fit, conf.int = TRUE, palette = "Dark2", censor = FALSE,
-           surv.median.line = "hv", data=user_data) + ggtitle(cox_f)
-
+  library(survminer)
+  fit <- survfit(coxfit, newdata = new_df)
+  ggsurvplot(fit, conf.int = TRUE, palette = "Dark2", censor = FALSE,
+             surv.median.line = "hv", data=user_data) + ggtitle(cox_f)
+}
 ```
