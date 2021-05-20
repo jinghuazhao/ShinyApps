@@ -11,4 +11,4 @@ git commit -m "src"
 git push
 
 # shiny::runApp()
-# rsconnect::deployApp(logLevel="quiet")
+# rsconnect::deployApp(forceUpdate=TRUE, logLevel="quiet")
