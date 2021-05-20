@@ -8,8 +8,13 @@ server <- function(input, output) {
       validate("Invalid file; Please upload a .csv or .tsv file")
     )
   })
-  library(survival)
-  output$km <- renderPlot({plot(survfit(Surv(time, status) ~ 1, data = data()), xlab = "Days",  ylab = "Overall survival probability")})
+  formulaText <- reactive({
+    paste("Surv(",input$time, ",", input$outcome, ") ~ 1")
+  })
+  output$caption <- renderText({
+    formulaText()
+  })
+  output$km <- renderPlot({plot(survfit(as.formula(formulaText()), data = data()), xlab = "Time",  ylab = "Overall survival probability")})
   output$preview <- renderTable({
     head(data())
   })

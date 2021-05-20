@@ -24,13 +24,11 @@ ui <- dashboardPage(
     tabItems(
       tabItem(tabName = "landing",
          div(class = "jumbotron", HTML("<center><h1>Shiny for Survival analysis</h1></center>")),
-         fluidRow(
-            fluidRow(div(class = "col-sm-12", 
-                         div(class = "box box-primary", style = "padding-right: 5%; padding-left: 5%; font-size:100%", NULL,
-                             div(class = "box-body", shiny::includeMarkdown("README.md"))
-                         )
-                     )
-            )
+         fluidRow(div(class = "col-sm-12",
+                      div(class = "box box-primary", style = "padding-right: 5%; padding-left: 5%; font-size:100%", NULL,
+                          div(class = "box-body", shiny::includeMarkdown("README.md"))
+                      )
+                 )
          )
       ),
       tabItem(tabName = "Data",
@@ -43,6 +41,15 @@ ui <- dashboardPage(
       ),
       tabItem(tabName = "Model",
         h2("Model specification"),
+        selectInput("outcome", "Outcome:",
+                    c("Status" = "status")),
+        selectInput("time", "Time:",
+                    c("Time" = "time")),
+        selectInput("covariates", "Covariates:",
+                    c("Age" = "age",
+                      "Sex" = "sex",
+                      "Weight loss" = "wt.loss"),  multiple=TRUE),
+        h3(textOutput("caption")),
         plotOutput("km")
       ),
       tabItem(tabName = "Download",
