@@ -17,8 +17,8 @@ knitr::opts_chunk$set(
 
 ```{r}
 library(survival)
-knitr::kable(head(lung),caption="The lung data from R/survival package")
 write.csv(survival::lung,file="lung.csv",quote=FALSE,row.names=FALSE)
+knitr::kable(head(lung),caption="The lung data from R/survival package")
 ```
 
 ### Data
@@ -29,7 +29,7 @@ This takes a local file in .csv or .tsv format, such as `lung.tsv` from above.
 
 Once the data is uploaded, this defines the model as in the example gives a Kaplan-Meier curve.
 
-```{r km, fig.height=6, fig.width=6}
+```{r km, fig.height=6.5, fig.width=6.5, echo=FALSE}
 plot(survfit(Surv(time, status) ~ 1, data = lung), xlab = "Days",  ylab = "Overall survival probability")
 ```
 ### Download
@@ -40,7 +40,7 @@ This is a template for download results.
 
 This is a PDF file containing the commands and plots. For the current example, we have
 
-```{r cox, fig.height=6, fig.width=6}
+```{r cox, fig.height=6.5, fig.width=6.5, echo=FALSE, message=FALSE}
 coxfit <- coxph(Surv(time, status) ~ age + sex + wt.loss, data = lung)
 
 # Survival curves by sex with adjustment for age and wt.loss
@@ -52,7 +52,6 @@ new_df <- with(lung,
                           wt.loss = rep(mean(wt.loss, na.rm = TRUE), 2)
                )
 )
-new_df
 
 library(survminer)
 fit <- survfit(coxfit, newdata = new_df)

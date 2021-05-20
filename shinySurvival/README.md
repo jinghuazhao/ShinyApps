@@ -7,6 +7,7 @@ R/survival package as follows:
 
 ```r
 library(survival)
+write.csv(survival::lung,file="lung.csv",quote=FALSE,row.names=FALSE)
 knitr::kable(head(lung),caption="The lung data from R/survival package")
 ```
 
@@ -21,10 +22,6 @@ Table: The lung data from R/survival package
 |    1|  883|      2|  60|   1|       0|      100|        90|       NA|       0|
 |   12| 1022|      1|  74|   1|       1|       50|        80|      513|       0|
 
-```r
-write.csv(survival::lung,file="lung.csv",quote=FALSE,row.names=FALSE)
-```
-
 ### Data
 
 This takes a local file in .csv or .tsv format, such as `lung.tsv` from above.
@@ -33,12 +30,8 @@ This takes a local file in .csv or .tsv format, such as `lung.tsv` from above.
 
 Once the data is uploaded, this defines the model as in the example gives a Kaplan-Meier curve.
 
-
-```r
-plot(survfit(Surv(time, status) ~ 1, data = lung), xlab = "Days",  ylab = "Overall survival probability")
-```
-
 <img src="www/km-1.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" />
+
 ### Download
 
 This is a template for download results.
@@ -46,31 +39,5 @@ This is a template for download results.
 ### Report
 
 This is a PDF file containing the commands and plots. For the current example, we have
-
-
-```r
-coxfit <- coxph(Surv(time, status) ~ age + sex + wt.loss, data = lung)
-
-# Survival curves by sex with adjustment for age and wt.loss
-# A new data frame is generated containing two rows, one for each value of sex;
-# the other covariates are fixed to their average values
-new_df <- with(lung,
-               data.frame(sex = c(1, 2),
-                          age = rep(mean(age, na.rm = TRUE), 2),
-                          wt.loss = rep(mean(wt.loss, na.rm = TRUE), 2)
-               )
-)
-new_df
-#>   sex      age  wt.loss
-#> 1   1 62.44737 9.831776
-#> 2   2 62.44737 9.831776
-
-library(survminer)
-#> Loading required package: ggplot2
-#> Loading required package: ggpubr
-fit <- survfit(coxfit, newdata = new_df)
-ggsurvplot(fit, conf.int = TRUE, palette = "Dark2", censor = FALSE,
-           surv.median.line = "hv", data=lung)
-```
 
 <img src="www/cox-1.png" title="plot of chunk cox" alt="plot of chunk cox" style="display:block; margin: auto" style="display: block; margin: auto;" />
