@@ -5,18 +5,17 @@ params:
   data: NA
 ---
 
-```{r eval = FALSE, echo = FALSE}
-# For html output, change the header to have "output: html_document".
-#
-# Note that due to an issue in rmarkdown, the default value of a parameter in
-# the header cannot be `NULL`, so I used a default of `NA` for the default value
-# of `n`.
+```{r}
+# Note
+# 1. For html output, change the header to have "output: html_document".
+# 2. rmarkdown requires that the default value of a parameter in the
+#    header not to be `NULL`, so I used `NA` for the default value
+user_data <- with(params,data)
 ```
 
 ## The data structure
 
 ```{r}
-user_data <- with(params,data)
 knitr::kable(head(user_data),caption="The lung data from R/survival package")
 ```
 
@@ -24,7 +23,7 @@ knitr::kable(head(user_data),caption="The lung data from R/survival package")
 
 The overal survival probability can be seen from the Kaplan-Meier curve.
 
-```{r km, fig.height=7, fig.width=7}
+```{r km, fig.height=6.5, fig.width=6.5}
 library(survival)
 plot(survfit(Surv(time, status) ~ 1, data = user_data),
              xlab = "Days",
@@ -34,7 +33,7 @@ plot(survfit(Surv(time, status) ~ 1, data = user_data),
 
 ## The Cox model
 
-```{r cox, fig.height=7, fig.width=7}
+```{r cox, fig.height=6.5, fig.width=6.5, message=FALSE}
 coxfit <- coxph(Surv(time, status) ~ age + sex + wt.loss, data = user_data)
 
 new_df <- with(user_data,
