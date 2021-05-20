@@ -10,4 +10,5 @@ git add src
 git commit -m "src"
 git push
 
-# source("ui.R");source("server.R");shiny::shinyApp(ui,server)
+# shiny::runApp()
+# rsconnect::deployApp(logLevel="quiet")
