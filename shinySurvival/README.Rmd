@@ -5,23 +5,19 @@ This is a very early attempt to seed Shiny projects via the familiar survival an
 An end-user can upload his/her own data for analysis and download the analysis report. The following aspects are experimented with data from 
 R/survival package as follows:
 
-```r
-library(survival)
-knitr::kable(head(lung),caption="The lung data from R/survival package")
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  out.extra = 'style="display:block; margin: auto"',
+  fig.align = "center",
+  fig.path = "www/",
+  collapse = TRUE,
+  comment = "#>",
+  dev = "png")
 ```
 
-Table: The lung data from R/survival package
-
-| inst| time| status| age| sex| ph.ecog| ph.karno| pat.karno| meal.cal| wt.loss|
-|----:|----:|------:|---:|---:|-------:|--------:|---------:|--------:|-------:|
-|    3|  306|      2|  74|   1|       1|       90|       100|     1175|      NA|
-|    3|  455|      2|  68|   1|       0|       90|        90|     1225|      15|
-|    3| 1010|      1|  56|   1|       0|       90|        90|       NA|      15|
-|    5|  210|      2|  57|   1|       1|       90|        60|     1150|      11|
-|    1|  883|      2|  60|   1|       0|      100|        90|       NA|       0|
-|   12| 1022|      1|  74|   1|       1|       50|        80|      513|       0|
-
-```r
+```{r}
+library(survival)
+knitr::kable(head(lung),caption="The lung data from R/survival package")
 write.csv(survival::lung,file="lung.csv",quote=FALSE,row.names=FALSE)
 ```
 
@@ -33,12 +29,9 @@ This takes a local file in .csv or .tsv format, such as `lung.tsv` from above.
 
 Once the data is uploaded, this defines the model as in the example gives a Kaplan-Meier curve.
 
-
-```r
+```{r km, fig.height=6, fig.width=6}
 plot(survfit(Surv(time, status) ~ 1, data = lung), xlab = "Days",  ylab = "Overall survival probability")
 ```
-
-<img src="www/km-1.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" />
 ### Download
 
 This is a template for download results.
@@ -47,8 +40,7 @@ This is a template for download results.
 
 This is a PDF file containing the commands and plots. For the current example, we have
 
-
-```r
+```{r cox, fig.height=6, fig.width=6}
 coxfit <- coxph(Surv(time, status) ~ age + sex + wt.loss, data = lung)
 
 # Survival curves by sex with adjustment for age and wt.loss
@@ -61,16 +53,9 @@ new_df <- with(lung,
                )
 )
 new_df
-#>   sex      age  wt.loss
-#> 1   1 62.44737 9.831776
-#> 2   2 62.44737 9.831776
 
 library(survminer)
-#> Loading required package: ggplot2
-#> Loading required package: ggpubr
 fit <- survfit(coxfit, newdata = new_df)
 ggsurvplot(fit, conf.int = TRUE, palette = "Dark2", censor = FALSE,
            surv.median.line = "hv", data=lung)
 ```
-
-<img src="www/cox-1.png" title="plot of chunk cox" alt="plot of chunk cox" style="display:block; margin: auto" style="display: block; margin: auto;" />

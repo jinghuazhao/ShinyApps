@@ -14,10 +14,10 @@ ui <- dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       menuItem("Home", tabName = "landing", icon = icon("home")),
-      menuItem("Upload-data", tabName = "Upload-data", icon = icon("upload")),
-      menuItem("Kaplan-Meier", tabName = "Kaplan-Meier", icon = icon("th")),
-      menuItem("Download-data", tabName = "Download-data", icon = icon("download")),
-      menuItem("Generate-report", tabName = "Generate-report", icon = icon("book-open"))
+      menuItem("Data", tabName = "Data", icon = icon("upload")),
+      menuItem("Model", tabName = "Model", icon = icon("th")),
+      menuItem("Download", tabName = "Download", icon = icon("download")),
+      menuItem("Report", tabName = "Report", icon = icon("book-open"))
     )
   ),
   dashboardBody(
@@ -33,7 +33,7 @@ ui <- dashboardPage(
             )
          )
       ),
-      tabItem(tabName = "Upload-data",
+      tabItem(tabName = "Data",
         h2("Upload a csv or tsv file"),
         fluidRow(
           fileInput("file", NULL, accept = c(".csv", ".tsv")),
@@ -41,17 +41,17 @@ ui <- dashboardPage(
           tableOutput("preview")
         )
       ),
-      tabItem(tabName = "Kaplan-Meier",
-        h2("Kaplan-Meier plot"),
+      tabItem(tabName = "Model",
+        h2("Model specification"),
         plotOutput("km")
       ),
-      tabItem(tabName = "Download-data",
+      tabItem(tabName = "Download",
         h2("Download a tsv version of the data"),
         downloadButton("download", "Download")
       ),
-      tabItem(tabName = "Generate-report",
+      tabItem(tabName = "Report",
         h2("Generate analysis report"),
-        downloadButton("report", "Generate report")
+        downloadButton("report", "Report")
       )
     )
   )
