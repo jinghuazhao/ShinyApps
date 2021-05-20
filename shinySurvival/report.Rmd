@@ -42,7 +42,7 @@ plot(survfit(as.formula(km_f), data = user_data),
 ```{r cox, fig.height=6.5, fig.width=6.5, message=FALSE}
 coxfit <- coxph(as.formula(cox_f), data = user_data)
 
-if (grepl("sex|age", covariates))
+if (grepl("sex", covariates) & grepl("age", covariates) & grepl("wt.loss", covariates))
 {
   new_df <- with(user_data,
                  data.frame(sex = c(1, 2),

@@ -48,9 +48,7 @@ ui <- dashboardPage(
         selectInput("covariates", "Covariates:",
                     c("Age" = "age",
                       "Sex" = "sex",
-                      "Weight loss" = "wt.loss"), selected=c("sex", "age", "wt.loss"), multiple=TRUE),
-        h3(textOutput("caption")),
-        plotOutput("km")
+                      "Weight loss" = "wt.loss"), selected=c("sex", "age", "wt.loss"), multiple=TRUE)
       ),
       tabItem(tabName = "Download",
         h2("Download a tsv version of the data"),
@@ -58,6 +56,8 @@ ui <- dashboardPage(
       ),
       tabItem(tabName = "Report",
         h2("Generate analysis report"),
+        h3(textOutput("caption")),
+        plotOutput("km"),
         downloadButton("report", "Report")
       )
     )
