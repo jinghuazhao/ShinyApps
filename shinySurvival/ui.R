@@ -52,14 +52,16 @@ ui <- dashboardPage(
       ),
       tabItem(tabName = "Download",
         h2("Download a tsv version of the data"),
+        helpText("The data may have been modified or new results."),
         downloadButton("download", "Download")
       ),
       tabItem(tabName = "Report",
-        h2("Generate analysis report"),
+        helpText("We illustrate with Kaplan-Meier curve, followed by Cox model."),
         h3(textOutput("km_caption")),
         plotOutput("km"),
         h3(textOutput("cox_caption")),
-        downloadButton("report", "Download")
+        radioButtons('format', 'Report document format:', c('PDF', 'HTML', 'Word'), inline = TRUE),
+        downloadButton("report", "Download report")
       )
     )
   )

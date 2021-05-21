@@ -1,50 +1,29 @@
----
-title: "Analysis report"
-output: pdf_document
-params:
-  data: NA
-  status: NA
-  time: NA
-  covariates: NA
----
+# The data structure
 
-## Notes
-
-1. Change the header to "output: html_document" for html output.
-2. Set parameters as NA to meet the non-NULL requirement of rmarkdown.
-
-```{r}
-user_data <- with(params,data)
-km_f <- with(params, paste("Surv(", time, ",", status, ") ~ 1"))
-cox_f <- with(params, paste("Surv(", time, ",", status, ") ~ ", covariates))
+```{r, echo=FALSE}
+knitr::kable(head(data()),caption="The header")
 ```
 
-## The data structure
-
-```{r}
-knitr::kable(head(user_data),caption="The lung data from R/survival package")
-```
-
-## The Kaplan-Meier curve
+# The Kaplan-Meier curve
 
 The overal survival probability can be seen from the Kaplan-Meier curve.
 
-```{r km, fig.height=6.5, fig.width=6.5}
+```{r km, fig.height=6.5, fig.width=6.5, echo=FALSE}
 library(survival)
-plot(survfit(as.formula(km_f), data = user_data),
+plot(survfit(as.formula(km_formulaText()), data = data()),
              xlab = "Time",
-             ylab = "Overall survival probability", main=km_f
+             ylab = "Overall survival probability", main=km_formulaText()
 )
 ```
 
-## The Cox model
+# The Cox model
 
-```{r cox, fig.height=6.5, fig.width=6.5, message=FALSE}
-coxfit <- coxph(as.formula(cox_f), data = user_data)
+```{r cox, fig.height=6.5, fig.width=6.5, message=FALSE, echo=FALSE}
+coxfit <- coxph(as.formula(cox_formulaText()), data = data())
 
-if (with(params,grepl("sex", covariates) & grepl("age", covariates) & grepl("wt.loss", covariates)))
+if (grepl("sex", covariates()) & grepl("age", covariates()) & grepl("wt.loss", covariates()))
 {
-  new_df <- with(user_data,
+  new_df <- with(data(),
                  data.frame(sex = c(1, 2),
                             age = rep(mean(age, na.rm = TRUE), 2),
                             wt.loss = rep(mean(wt.loss, na.rm = TRUE), 2)
@@ -55,6 +34,6 @@ if (with(params,grepl("sex", covariates) & grepl("age", covariates) & grepl("wt.
   library(survminer)
   fit <- survfit(coxfit, newdata = new_df)
   ggsurvplot(fit, conf.int = TRUE, palette = "Dark2", censor = FALSE,
-             surv.median.line = "hv", data=user_data) + ggtitle(cox_f)
+             surv.median.line = "hv", data=data()) + ggtitle(cox_formulaText())
 }
 ```

@@ -27,24 +27,40 @@ server <- function(input, output) {
   cox_formulaText <- reactive({paste("Surv(",input$time, ",", input$outcome, ") ~ ", covariates())})
   output$cox_caption <- renderText({cox_formulaText()})
   output$report <- downloadHandler(
-  # For html output, change this to ".html"
-    filename = function() {paste0(tools::file_path_sans_ext(input$file), ".pdf")},
-    content = function(file) {
-      # Copy the report file to a temporary directory before processing it, in
-      # case we don't have write permissions to the current working dir (which
-      # can happen when deployed).
-      tempReport <- file.path(tempdir(), "report.Rmd")
-      file.copy("report.Rmd", tempReport, overwrite = TRUE)
-
-      # Set up parameters to pass to Rmd document
-      params <- list(data=data(),status=status(),time=time(),covariates=covariates())
-      # Knit the document, passing in the `params` list, and eval it in a
-      # child of the global environment (this isolates the code in the document
-      # from the code in this app).
-      rmarkdown::render(tempReport, output_file = file,
-         params = params,
-         envir = new.env(parent = globalenv())
+    filename = function() {
+      paste(tools::file_path_sans_ext(input$file), sep = ".", 
+            switch(input$format, PDF = 'pdf', HTML = 'html', Word = 'docx')
       )
+    },
+    content = function(file) {
+      src <- normalizePath('report.Rmd')
+      owd <- setwd(tempdir())
+      on.exit(setwd(owd))
+      file.copy(src, 'report.Rmd', overwrite = TRUE)
+      out <- render('report.Rmd', switch(input$format, PDF = pdf_document(), HTML = html_document(), Word = word_document()))
+      file.rename(out, file)
     }
   )
 }
+
+# It is possible to communicate with .Rmd as follows,
+#   content = function(file) {
+#     tempReport <- file.path(tempdir(), "report.Rmd")
+#     file.copy("report.Rmd", tempReport, overwrite = TRUE)
+#     params <- list(data=data(),status=status(),time=time(),covariates=covariates())
+#     rmarkdown::render(tempReport, output_file = file,
+#        params = params,
+#        envir = new.env(parent = globalenv())
+#     )
+#   }
+# where the.Rmd contains header section:
+# ---
+# title: "Analysis report"
+# output: pdf_document
+# params:
+#  data: NA
+#  status: NA
+#  time: NA
+#  covariates: NA
+# ---
+# so we can use data <- with(params, data), etc.
