@@ -26,6 +26,16 @@ server <- function(input, output) {
                                 ylab = "Overall survival probability", main = km_formulaText())})
   cox_formulaText <- reactive({paste("Surv(",input$time, ",", input$outcome, ") ~ ", covariates())})
   output$cox_caption <- renderText({cox_formulaText()})
+  coxfit <- reactive({coxph(as.formula(cox_formulaText()), data=data())})
+  new_df <- reactive({with(data(),
+                           data.frame(sex = c(1, 2),
+                                      age = rep(mean(age, na.rm = TRUE), 2),
+                                      wt.loss = rep(mean(wt.loss, na.rm = TRUE), 2)
+                           )
+                     )})
+  fit <- reactive({survfit(coxfit(), newdata = new_df())})
+  output$cox <- renderPlot({ggsurvplot(fit(), conf.int = TRUE, palette = "Dark2", censor = FALSE,
+                                       surv.median.line = "hv", data=data()) + ggtitle(cox_formulaText())})
   output$report <- downloadHandler(
     filename = function() {
       paste(tools::file_path_sans_ext(input$file), sep = ".", 

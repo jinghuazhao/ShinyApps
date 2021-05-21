@@ -36,6 +36,7 @@ ui <- dashboardPage(
         fluidRow(
           fileInput("file", NULL, accept = c(".csv", ".tsv")),
           tableOutput("files"),
+          helpText("The first few lines are given as follows,"),
           tableOutput("preview")
         )
       ),
@@ -60,6 +61,7 @@ ui <- dashboardPage(
         h3(textOutput("km_caption")),
         plotOutput("km"),
         h3(textOutput("cox_caption")),
+        plotOutput("cox"),
         radioButtons('format', 'Report document format:', c('PDF', 'HTML', 'Word'), inline = TRUE),
         downloadButton("report", "Download report")
       )
