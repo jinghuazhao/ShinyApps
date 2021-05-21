@@ -31,6 +31,7 @@ Once the data is uploaded, this defines the model as in the example gives a Kapl
 ```{r km, fig.height=6.5, fig.width=6.5, echo=FALSE}
 plot(survfit(Surv(time, status) ~ 1, data = lung), xlab = "Time",  ylab = "Overall survival probability")
 ```
+
 ### Download
 
 This is a template for download results.

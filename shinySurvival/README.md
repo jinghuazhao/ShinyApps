@@ -19,6 +19,7 @@ This takes a local file in .csv or .tsv format, such as `lung.tsv` from above.
 Once the data is uploaded, this defines the model as in the example gives a Kaplan-Meier curve.
 
 <img src="www/km-1.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" />
+
 ### Download
 
 This is a template for download results.
