@@ -58,6 +58,7 @@ ui <- dashboardPage(
         h2("Generate analysis report"),
         h3(textOutput("km_caption")),
         plotOutput("km"),
+        h3(textOutput("cox_caption")),
         downloadButton("report", "Download")
       )
     )

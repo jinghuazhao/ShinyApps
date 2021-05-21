@@ -11,6 +11,9 @@ server <- function(input, output) {
   status <- reactive({paste(input$outcome)})
   time <- reactive({paste(input$time)})
   covariates <- reactive({paste(input$covariates,collapse=" + ")})
+  output$preview <- renderTable({
+    head(data())
+  })
   km_formulaText <- reactive({
     paste("Surv(",input$time, ",", input$outcome, ") ~ 1")
   })
@@ -19,8 +22,11 @@ server <- function(input, output) {
   })
   output$km <- renderPlot({plot(survfit(as.formula(km_formulaText()), data = data()), xlab = "Time",
                                 ylab = "Overall survival probability", main = km_formulaText())})
-  output$preview <- renderTable({
-    head(data())
+  cox_formulaText <- reactive({
+    paste("Surv(",input$time, ",", input$outcome, ") ~ ", covariates())
+  })
+  output$cox_caption <- renderText({
+    cox_formulaText()
   })
   output$download <- downloadHandler(
     filename = function() {
