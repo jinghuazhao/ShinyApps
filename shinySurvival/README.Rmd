@@ -30,7 +30,7 @@ This takes a local file in .csv or .tsv format, such as `lung.tsv` from above.
 Once the data is uploaded, this defines the model as in the example gives a Kaplan-Meier curve.
 
 ```{r km, fig.height=6.5, fig.width=6.5, echo=FALSE}
-plot(survfit(Surv(time, status) ~ 1, data = lung), xlab = "Days",  ylab = "Overall survival probability")
+plot(survfit(Surv(time, status) ~ 1, data = lung), xlab = "Time",  ylab = "Overall survival probability")
 ```
 ### Download
 
@@ -38,7 +38,7 @@ This is a template for download results.
 
 ### Report
 
-This is a PDF file containing the commands and plots. For the current example, we have
+This is a file containing the commands and plots. For the current example, we have
 
 ```{r cox, fig.height=6.5, fig.width=6.5, echo=FALSE, message=FALSE}
 coxfit <- coxph(Surv(time, status) ~ age + sex + wt.loss, data = lung)
