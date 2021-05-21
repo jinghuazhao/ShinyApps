@@ -5,27 +5,10 @@ This is a very early attempt to seed Shiny projects via the familiar survival an
 An end-user can upload his/her own data for analysis and download the analysis report. The following aspects are experimented with data from 
 R/survival package as follows:
 
-
-
-
 ```r
 library(survival)
 write.csv(survival::lung,file="lung.csv",quote=FALSE,row.names=FALSE)
-knitr::kable(head(lung),caption="The lung data from R/survival package")
 ```
-
-
-
-Table: The lung data from R/survival package
-
-| inst| time| status| age| sex| ph.ecog| ph.karno| pat.karno| meal.cal| wt.loss|
-|----:|----:|------:|---:|---:|-------:|--------:|---------:|--------:|-------:|
-|    3|  306|      2|  74|   1|       1|       90|       100|     1175|      NA|
-|    3|  455|      2|  68|   1|       0|       90|        90|     1225|      15|
-|    3| 1010|      1|  56|   1|       0|       90|        90|       NA|      15|
-|    5|  210|      2|  57|   1|       1|       90|        60|     1150|      11|
-|    1|  883|      2|  60|   1|       0|      100|        90|       NA|       0|
-|   12| 1022|      1|  74|   1|       1|       50|        80|      513|       0|
 
 ### Data
 

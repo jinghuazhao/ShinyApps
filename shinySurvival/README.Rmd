@@ -18,7 +18,6 @@ knitr::opts_chunk$set(
 ```{r}
 library(survival)
 write.csv(survival::lung,file="lung.csv",quote=FALSE,row.names=FALSE)
-knitr::kable(head(lung),caption="The lung data from R/survival package")
 ```
 
 ### Data
