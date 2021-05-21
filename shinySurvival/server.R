@@ -1,4 +1,5 @@
 server <- function(input, output) {
+# Data
   data <- reactive({
     req(input$file)
     ext <- tools::file_ext(input$file$name)
@@ -8,17 +9,17 @@ server <- function(input, output) {
       validate("Invalid file; Please upload a .csv or .tsv file")
     )
   })
+  output$preview <- renderTable({head(data())})
+# Model
   status <- reactive({paste(input$outcome)})
   time <- reactive({paste(input$time)})
-  covariates <- reactive({paste(input$covariates,collapse=" + ")})
-# model
-  output$preview <- renderTable({head(data())})
-# download
+  covariates <- reactive({paste(input$covariates, collapse=" + ")})
+# Download
   output$download <- downloadHandler(
     filename = function() {paste0(tools::file_path_sans_ext(input$file), ".tsv")},
     content = function(file) {vroom::vroom_write(data(), file)}
   )
-# report
+# Report
   km_formulaText <- reactive({paste("Surv(",input$time, ",", input$outcome, ") ~ 1")})
   output$km_caption <- renderText({km_formulaText()})
   output$km <- renderPlot({plot(survfit(as.formula(km_formulaText()), data = data()), xlab = "Time",
