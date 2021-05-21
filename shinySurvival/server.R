@@ -11,36 +11,20 @@ server <- function(input, output) {
   status <- reactive({paste(input$outcome)})
   time <- reactive({paste(input$time)})
   covariates <- reactive({paste(input$covariates,collapse=" + ")})
-  output$preview <- renderTable({
-    head(data())
-  })
-  km_formulaText <- reactive({
-    paste("Surv(",input$time, ",", input$outcome, ") ~ 1")
-  })
-  output$km_caption <- renderText({
-    km_formulaText()
-  })
+  output$preview <- renderTable({head(data())})
+  km_formulaText <- reactive({paste("Surv(",input$time, ",", input$outcome, ") ~ 1")})
+  output$km_caption <- renderText({km_formulaText()})
   output$km <- renderPlot({plot(survfit(as.formula(km_formulaText()), data = data()), xlab = "Time",
                                 ylab = "Overall survival probability", main = km_formulaText())})
-  cox_formulaText <- reactive({
-    paste("Surv(",input$time, ",", input$outcome, ") ~ ", covariates())
-  })
-  output$cox_caption <- renderText({
-    cox_formulaText()
-  })
+  cox_formulaText <- reactive({paste("Surv(",input$time, ",", input$outcome, ") ~ ", covariates())})
+  output$cox_caption <- renderText({cox_formulaText()})
   output$download <- downloadHandler(
-    filename = function() {
-      paste0(tools::file_path_sans_ext(input$file), ".tsv")
-    },
-    content = function(file) {
-      vroom::vroom_write(data(), file)
-    }
+    filename = function() {paste0(tools::file_path_sans_ext(input$file), ".tsv")},
+    content = function(file) {vroom::vroom_write(data(), file)}
   )
   output$report <- downloadHandler(
     # For html output, change this to ".html"
-    filename = function() {
-      paste0(tools::file_path_sans_ext(input$file), ".pdf")
-    },
+    filename = function() {paste0(tools::file_path_sans_ext(input$file), ".pdf")},
     content = function(file) {
       # Copy the report file to a temporary directory before processing it, in
       # case we don't have write permissions to the current working dir (which
