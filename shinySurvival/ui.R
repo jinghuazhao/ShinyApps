@@ -1,4 +1,4 @@
-source("init.R")
+source("R/init.R")
 
 ui <- dashboardPage(
   title = "shinySurvival",
@@ -56,7 +56,7 @@ ui <- dashboardPage(
       ),
       tabItem(tabName = "Report",
         h2("Generate analysis report"),
-        h3(textOutput("caption")),
+        h3(textOutput("km_caption")),
         plotOutput("km"),
         downloadButton("report", "Download")
       )

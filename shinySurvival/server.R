@@ -11,13 +11,14 @@ server <- function(input, output) {
   status <- reactive({paste(input$outcome)})
   time <- reactive({paste(input$time)})
   covariates <- reactive({paste(input$covariates,collapse=" + ")})
-  formulaText <- reactive({
+  km_formulaText <- reactive({
     paste("Surv(",input$time, ",", input$outcome, ") ~ 1")
   })
-  output$caption <- renderText({
-    formulaText()
+  output$km_caption <- renderText({
+    km_formulaText()
   })
-  output$km <- renderPlot({plot(survfit(as.formula(formulaText()), data = data()), xlab = "Time",  ylab = "Overall survival probability")})
+  output$km <- renderPlot({plot(survfit(as.formula(km_formulaText()), data = data()), xlab = "Time",
+                                ylab = "Overall survival probability", main = km_formulaText())})
   output$preview <- renderTable({
     head(data())
   })

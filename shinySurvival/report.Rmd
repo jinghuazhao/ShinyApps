@@ -10,8 +10,8 @@ params:
 
 ## Notes
 
-1. For html output, change the header to have "output: html_document".
-2. rmarkdown requires that the default value of a parameter in the header not to be `NULL`, so I used `NA` for the default value.
+1. Change the header to "output: html_document" for html output.
+2. Set parameters as NA to meet the non-NULL requirement of rmarkdown.
 
 ```{r}
 user_data <- with(params,data)
