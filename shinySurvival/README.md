@@ -23,7 +23,7 @@ Once the data is uploaded, this defines the model as in the example.
 
 # Download
 
-This is a template for download results.
+This is a template for downloading results.
 
 # Report
 
