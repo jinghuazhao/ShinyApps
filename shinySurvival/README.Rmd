@@ -20,25 +20,30 @@ library(survival)
 write.csv(survival::lung,file="lung.csv",quote=FALSE,row.names=FALSE)
 ```
 
-### Data
+# Data
 
 This takes a local file in .csv or .tsv format, such as `lung.tsv` from above.
 
-### Model
+# Model
 
-Once the data is uploaded, this defines the model as in the example gives a Kaplan-Meier curve.
+Once the data is uploaded, this defines the model as in the example.
+
+# Download
+
+This is a template for download results.
+
+# Report
+
+This is a file containing the commands and plots. For the current example, we have
+
+## Kaplan-Meier curve
 
 ```{r km, fig.height=6.5, fig.width=6.5, echo=FALSE}
 plot(survfit(Surv(time, status) ~ 1, data = lung), xlab = "Time",  ylab = "Overall survival probability")
 ```
 
-### Download
+## Cox survival curve
 
-This is a template for download results.
-
-### Report
-
-This is a file containing the commands and plots. For the current example, we have
 
 ```{r cox, fig.height=6.5, fig.width=6.5, echo=FALSE, message=FALSE}
 coxfit <- coxph(Surv(time, status) ~ age + sex + wt.loss, data = lung)

@@ -1,11 +1,11 @@
 name: shinysurvival
-title:
+title: shinySurvival
 username:
 account: jinghuazhao
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4144910
-bundleId: 4625890
+bundleId: 4625901
 url: https://jinghuazhao.shinyapps.io/shinysurvival/
-when: 1621630824.11477
-lastSyncTime: 1621630824.11479
+when: 1621631055.41814
+lastSyncTime: 1621631055.41815
