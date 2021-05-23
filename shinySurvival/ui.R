@@ -42,14 +42,10 @@ ui <- dashboardPage(
       ),
       tabItem(tabName = "Model",
         h2("Model specification"),
-        selectInput("outcome", "Outcome:",
-                    c("Status" = "status")),
-        selectInput("time", "Time:",
-                    c("Time" = "time")),
-        selectInput("covariates", "Covariates:",
-                    c("Age" = "age",
-                      "Sex" = "sex",
-                      "Weight loss" = "wt.loss"), selected=c("sex", "age", "wt.loss"), multiple=TRUE)
+        uiOutput("outcome"),
+        uiOutput("time"),
+        uiOutput("covariates"),
+        checkboxInput("summary", "Summary of the model", TRUE)
       ),
       tabItem(tabName = "Download",
         h2("Download a tsv version of the data"),
@@ -62,6 +58,10 @@ ui <- dashboardPage(
         plotOutput("km"),
         h3(textOutput("cox_caption")),
         plotOutput("cox"),
+        h3("Cox model summary"),
+        verbatimTextOutput("coxfit"),
+        h3("Model fit summary"),
+        verbatimTextOutput("fit"),
         radioButtons('format', 'Report document format:', c('PDF', 'HTML', 'Word'), inline = TRUE),
         downloadButton("report", "Download report")
       )

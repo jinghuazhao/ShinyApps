@@ -11,6 +11,18 @@ server <- function(input, output) {
   })
   output$preview <- renderTable({head(data())})
 # Model
+  output$outcome <- renderUI({
+     selectInput("outcome", "Outcome:", c("Status" = "status"))
+  })
+  output$time <- renderUI({
+     selectInput("time", "Time:", c("Time" = "time"))
+  })
+  output$covariates <- renderUI({
+     selectInput("covariates", "Covariates:",
+                 c("Age" = "age",
+                "Sex" = "sex",
+                "Weight loss" = "wt.loss"), selected=c("sex", "age", "wt.loss"), multiple=TRUE)
+  })
   status <- reactive({paste(input$outcome)})
   time <- reactive({paste(input$time)})
   covariates <- reactive({paste(input$covariates, collapse=" + ")})
@@ -27,6 +39,7 @@ server <- function(input, output) {
   cox_formulaText <- reactive({paste("Surv(",input$time, ",", input$outcome, ") ~ ", covariates())})
   output$cox_caption <- renderText({cox_formulaText()})
   coxfit <- reactive({coxph(as.formula(cox_formulaText()), data=data())})
+  output$coxfit <- renderPrint({ if (input$summary) summary(coxfit())})
   new_df <- reactive({with(data(),
                            data.frame(sex = c(1, 2),
                                       age = rep(mean(age, na.rm = TRUE), 2),
@@ -34,6 +47,7 @@ server <- function(input, output) {
                            )
                      )})
   fit <- reactive({survfit(coxfit(), newdata = new_df())})
+  output$fit <- renderPrint({if (input$summary) summary(fit())})
   output$cox <- renderPlot({ggsurvplot(fit(), conf.int = TRUE, palette = "Dark2", censor = FALSE,
                                        surv.median.line = "hv", data=data()) + ggtitle(cox_formulaText())})
   output$report <- downloadHandler(

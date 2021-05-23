@@ -20,6 +20,7 @@ plot(survfit(as.formula(km_formulaText()), data = data()),
 
 ```{r cox, fig.height=6.5, fig.width=6.5, message=FALSE, echo=FALSE}
 coxfit <- coxph(as.formula(cox_formulaText()), data = data())
+if (input$summary) summary(coxfit)
 
 if (grepl("sex", covariates()) & grepl("age", covariates()) & grepl("wt.loss", covariates()))
 {
@@ -33,6 +34,7 @@ if (grepl("sex", covariates()) & grepl("age", covariates()) & grepl("wt.loss", c
 
   library(survminer)
   fit <- survfit(coxfit, newdata = new_df)
+  if (input$summary) print(summary(fit))
   ggsurvplot(fit, conf.int = TRUE, palette = "Dark2", censor = FALSE,
              surv.median.line = "hv", data=data()) + ggtitle(cox_formulaText())
 }
