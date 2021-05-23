@@ -17,13 +17,13 @@ write.csv(survival::lung,file="lung.csv",quote=FALSE,row.names=FALSE)
 
 This takes a local file in .csv or .tsv format, such as `lung.tsv` from above.
 
+# Download
+
+The input data can be saved in a variety of format -- is is actaully a template for downloading results.
+
 # Model
 
 Once the data is uploaded, this defines the model as in the example.
-
-# Download
-
-This is a template for downloading results.
 
 # Report
 
