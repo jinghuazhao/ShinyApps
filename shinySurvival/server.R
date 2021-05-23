@@ -56,7 +56,7 @@ server <- function(input, output) {
   output$report <- downloadHandler(
     filename = function() {
       paste(tools::file_path_sans_ext(input$file), sep = ".", 
-            switch(input$reportRormat, PDF = 'pdf', HTML = 'html', Word = 'docx')
+            switch(input$reportFormat, PDF = 'pdf', HTML = 'html', Word = 'docx')
       )
     },
     content = function(file) {
