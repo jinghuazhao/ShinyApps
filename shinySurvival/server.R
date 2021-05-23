@@ -11,19 +11,17 @@ server <- function(input, output) {
   })
   output$preview <- renderTable({head(data())})
 # Model
-  output$outcome <- renderUI({
-     selectInput("outcome", "Outcome:", c("Status" = "status"))
+  output$status <- renderUI({
+     selectInput("status", "Status:", names(data()), selected="status")
   })
   output$time <- renderUI({
-     selectInput("time", "Time:", c("Time" = "time"))
+     selectInput("time", "Time:", names(data()), selected="time")
   })
   output$covariates <- renderUI({
-     selectInput("covariates", "Covariates:",
-                 c("Age" = "age",
-                "Sex" = "sex",
-                "Weight loss" = "wt.loss"), selected=c("sex", "age", "wt.loss"), multiple=TRUE)
+     selectInput("covariates", "Covariates:", names(data()),
+                 selected=c("sex", "age", "wt.loss"), multiple=TRUE)
   })
-  status <- reactive({paste(input$outcome)})
+  status <- reactive({paste(input$status)})
   time <- reactive({paste(input$time)})
   covariates <- reactive({paste(input$covariates, collapse=" + ")})
 # Download
@@ -32,11 +30,11 @@ server <- function(input, output) {
     content = function(file) {vroom::vroom_write(data(), file)}
   )
 # Report
-  km_formulaText <- reactive({paste("Surv(",input$time, ",", input$outcome, ") ~ 1")})
+  km_formulaText <- reactive({paste("Surv(",input$time, ",", input$status, ") ~ 1")})
   output$km_caption <- renderText({km_formulaText()})
   output$km <- renderPlot({plot(survfit(as.formula(km_formulaText()), data = data()), xlab = "Time",
                                 ylab = "Overall survival probability", main = km_formulaText())})
-  cox_formulaText <- reactive({paste("Surv(",input$time, ",", input$outcome, ") ~ ", covariates())})
+  cox_formulaText <- reactive({paste("Surv(",input$time, ",", input$status, ") ~ ", covariates())})
   output$cox_caption <- renderText({cox_formulaText()})
   coxfit <- reactive({coxph(as.formula(cox_formulaText()), data=data())})
   output$coxfit <- renderPrint({ if (input$summary) summary(coxfit())})

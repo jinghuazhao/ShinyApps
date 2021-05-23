@@ -42,7 +42,8 @@ ui <- dashboardPage(
       ),
       tabItem(tabName = "Model",
         h2("Model specification"),
-        uiOutput("outcome"),
+        p("In the model, a status (event, censored) and a time variable together with some covariate(s) are necessary in order to fit a Cox model"),
+        uiOutput("status"),
         uiOutput("time"),
         uiOutput("covariates"),
         checkboxInput("summary", "Summary of the model", TRUE)
