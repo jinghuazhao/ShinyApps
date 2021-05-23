@@ -31,9 +31,14 @@ server <- function(input, output) {
      selectInput("covariates", "Covariates:", names(data()),
                  selected=c("sex", "age", "wt.loss"), multiple=TRUE)
   })
+  output$strata <- renderUI({
+     selectInput("strata", "Stratification variable:", names(data()),
+                 selected="sex", multiple=TRUE)
+  })
   status <- reactive({paste(input$status)})
   time <- reactive({paste(input$time)})
   covariates <- reactive({paste(input$covariates, collapse=" + ")})
+  strata <- reactive({paste(input$strata)})
 # Report
   km_formulaText <- reactive({paste("Surv(",input$time, ",", input$status, ") ~ 1")})
   output$km_caption <- renderText({km_formulaText()})
@@ -43,12 +48,12 @@ server <- function(input, output) {
   output$cox_caption <- renderText({cox_formulaText()})
   coxfit <- reactive({coxph(as.formula(cox_formulaText()), data=data())})
   output$coxfit <- renderPrint({ if (input$summary) summary(coxfit())})
-  new_df <- reactive({with(data(),
-                           data.frame(sex = c(1, 2),
-                                      age = rep(mean(age, na.rm = TRUE), 2),
-                                      wt.loss = rep(mean(wt.loss, na.rm = TRUE), 2)
-                           )
-                     )})
+  new_df <- reactive({with(data(), {
+                           grp <- unique(sort(data()[[strata()]]))
+                           data.frame(distinct(data()[strata()]),
+                                      as.data.frame(lapply(apply(data()[setdiff(names(data()),strata())],2,mean,na.rm=TRUE),rep,length(grp)))
+                           )})
+                     })
   fit <- reactive({survfit(coxfit(), newdata = new_df())})
   output$fit <- renderPrint({if (input$summary) summary(fit())})
   output$cox <- renderPlot({ggsurvplot(fit(), conf.int = TRUE, palette = "Dark2", censor = FALSE,

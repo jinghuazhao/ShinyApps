@@ -1,3 +1,4 @@
+library(dplyr)
 library(rmarkdown)
 library(shiny)
 library(shinydashboard)

@@ -22,13 +22,13 @@ plot(survfit(as.formula(km_formulaText()), data = data()),
 coxfit <- coxph(as.formula(cox_formulaText()), data = data())
 if (input$summary) summary(coxfit)
 
-if (grepl("sex", covariates()) & grepl("age", covariates()) & grepl("wt.loss", covariates()))
+if (grepl(strata(), covariates()))
 {
-  new_df <- with(data(),
-                 data.frame(sex = c(1, 2),
-                            age = rep(mean(age, na.rm = TRUE), 2),
-                            wt.loss = rep(mean(wt.loss, na.rm = TRUE), 2)
-                 )
+  new_df <- with(data(), {
+                 grp <- unique(sort(data()[[strata()]]))
+                 data.frame(distinct(data()[strata()]),
+                            as.data.frame(lapply(apply(data()[setdiff(names(data()),strata())],2,mean,na.rm=TRUE),rep,length(grp)))
+                 )}
   )
   new_df
 

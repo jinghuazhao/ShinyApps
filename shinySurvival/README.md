@@ -5,9 +5,6 @@ This is a very early attempt to seed Shiny projects via the familiar survival an
 An end-user can upload his/her own data for analysis and download the analysis report. The following aspects are experimented with data from 
 R/survival package as follows:
 
-
-
-
 ```r
 library(survival)
 write.csv(survival::lung,file="lung.csv",quote=FALSE,row.names=FALSE)

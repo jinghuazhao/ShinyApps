@@ -52,6 +52,7 @@ ui <- dashboardPage(
         uiOutput("status"),
         uiOutput("time"),
         uiOutput("covariates"),
+        uiOutput("strata"),
         checkboxInput("summary", "Summary of the model", TRUE)
       ),
       tabItem(tabName = "Report",
