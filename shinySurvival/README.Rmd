@@ -40,8 +40,9 @@ This is a file containing the commands and plots. For the current example, we ha
 
 These were from vignettes of the survminer package.
 
-```{r km, fig.height=6.5, fig.width=6.5, echo=FALSE}
-plot(survfit(Surv(time, status) ~ 1, data = lung), xlab = "Time",  ylab = "Overall survival probability")
+```{r km, fig.height=6.5, fig.width=6.5, echo=FALSE, message=FALSE}
+plot(survfit(Surv(time, status) ~ 1, data = lung),
+             xlab = "Time",  ylab = "Overall survival probability", main = "Overall survival probability")
 library(survminer)
 fit <- survfit(Surv(time, status) ~ sex, data = lung)
 ggsurvplot(fit, data = lung, pval = TRUE, pval.method = TRUE) + ggtitle("Log-rank (survdiff)")
