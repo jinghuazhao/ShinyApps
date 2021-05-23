@@ -1,6 +1,8 @@
 # The data structure
 
 ```{r, echo=FALSE}
+library(survival)
+library(survminer)
 knitr::kable(head(data()),caption="The header")
 ```
 
@@ -9,16 +11,8 @@ knitr::kable(head(data()),caption="The header")
 The overal survival probability can be seen from the Kaplan-Meier curve.
 
 ```{r km, fig.height=6.5, fig.width=6.5, echo=FALSE}
-library(survival)
-plot(survfit(as.formula(km_formulaText()), data = data()),
-             xlab = "Time",
-             ylab = "Overall survival probability", main=km_formulaText()
-)
-
-library(survminer)
-#ggsurvplot(survfit(as.formula(km_formulaText_strata()), data = data()),
-#           pval = TRUE, pval.method = TRUE) +
-#ggtitle("Survival probabilities by stratum")
+fit <- survfit(as.formula(km_formulaText()), data = data())
+plot(fit, xlab = "Time", ylab = "Overall survival probability", main=km_formulaText())
 ```
 
 # The Cox model
