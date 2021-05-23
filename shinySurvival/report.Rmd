@@ -3,7 +3,7 @@
 ```{r, echo=FALSE}
 library(survival)
 library(survminer)
-knitr::kable(head(data()),caption="The header")
+knitr::kable(head(data()),caption="Table: The header")
 ```
 
 # The Kaplan-Meier curve

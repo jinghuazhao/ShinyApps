@@ -51,7 +51,7 @@ server <- function(input, output) {
   cox_formulaText <- reactive({paste("Surv(",input$time, ",", input$status, ") ~ ", covariates())})
   output$cox_caption <- renderText({cox_formulaText()})
   coxfit <- reactive({coxph(as.formula(cox_formulaText()), data=data())})
-  output$coxfit <- renderPrint({ if (input$summary) summary(coxfit())})
+  output$coxfit <- renderPrint({if(input$summary) summary(coxfit())})
   new_df <- reactive({with(data(), {
                            grp <- unique(sort(data()[[strata()]]))
                            data.frame(distinct(data()[strata()]),
@@ -78,25 +78,3 @@ server <- function(input, output) {
     }
   )
 }
-
-# It is possible to communicate with .Rmd as follows,
-#   content = function(file) {
-#     tempReport <- file.path(tempdir(), "report.Rmd")
-#     file.copy("report.Rmd", tempReport, overwrite = TRUE)
-#     params <- list(data=data(),status=status(),time=time(),covariates=covariates())
-#     rmarkdown::render(tempReport, output_file = file,
-#        params = params,
-#        envir = new.env(parent = globalenv())
-#     )
-#   }
-# where the.Rmd contains header section:
-# ---
-# title: "Analysis report"
-# output: pdf_document
-# params:
-#  data: NA
-#  status: NA
-#  time: NA
-#  covariates: NA
-# ---
-# so we can use data <- with(params, data), etc.
