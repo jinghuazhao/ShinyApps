@@ -8,6 +8,8 @@ git add shinySurvival
 git commit -m "shinySurvival"
 git add src
 git commit -m "src"
+git add README.md
+git commit -m "README.md"
 git push
 
 # shiny::runApp()
