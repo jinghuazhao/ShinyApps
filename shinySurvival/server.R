@@ -10,6 +10,16 @@ server <- function(input, output) {
     )
   })
   output$preview <- renderTable({head(data())})
+# Download
+  output$download <- downloadHandler(
+    filename = function() {paste(tools::file_path_sans_ext(input$file), sep=".",
+                           switch(input$dataFormat, bz2="bz2",
+                                                    csv="csv",
+                                                    gz="gz",
+                                                    tsv="tsv",
+                                                    xz="xz"))},
+    content = function(file) {vroom::vroom_write(data(), file)}
+  )
 # Model
   output$status <- renderUI({
      selectInput("status", "Status:", names(data()), selected="status")
@@ -24,11 +34,6 @@ server <- function(input, output) {
   status <- reactive({paste(input$status)})
   time <- reactive({paste(input$time)})
   covariates <- reactive({paste(input$covariates, collapse=" + ")})
-# Download
-  output$download <- downloadHandler(
-    filename = function() {paste0(tools::file_path_sans_ext(input$file), ".tsv")},
-    content = function(file) {vroom::vroom_write(data(), file)}
-  )
 # Report
   km_formulaText <- reactive({paste("Surv(",input$time, ",", input$status, ") ~ 1")})
   output$km_caption <- renderText({km_formulaText()})
@@ -51,7 +56,7 @@ server <- function(input, output) {
   output$report <- downloadHandler(
     filename = function() {
       paste(tools::file_path_sans_ext(input$file), sep = ".", 
-            switch(input$format, PDF = 'pdf', HTML = 'html', Word = 'docx')
+            switch(input$reportRormat, PDF = 'pdf', HTML = 'html', Word = 'docx')
       )
     },
     content = function(file) {
@@ -59,7 +64,7 @@ server <- function(input, output) {
       owd <- setwd(tempdir())
       on.exit(setwd(owd))
       file.copy(src, 'report.Rmd', overwrite = TRUE)
-      out <- render('report.Rmd', switch(input$format, PDF = pdf_document(), HTML = html_document(), Word = word_document()))
+      out <- render('report.Rmd', switch(input$reportFormat, PDF = pdf_document(), HTML = html_document(), Word = word_document()))
       file.rename(out, file)
     }
   )

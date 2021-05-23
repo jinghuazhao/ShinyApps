@@ -15,8 +15,8 @@ ui <- dashboardPage(
     sidebarMenu(
       menuItem("Home", tabName = "landing", icon = icon("home")),
       menuItem("Data", tabName = "Data", icon = icon("upload")),
-      menuItem("Model", tabName = "Model", icon = icon("th")),
       menuItem("Download", tabName = "Download", icon = icon("download")),
+      menuItem("Model", tabName = "Model", icon = icon("th")),
       menuItem("Report", tabName = "Report", icon = icon("book-open"))
     )
   ),
@@ -40,18 +40,19 @@ ui <- dashboardPage(
           tableOutput("preview")
         )
       ),
+      tabItem(tabName = "Download",
+        h2("Download a specific version of the data"),
+        helpText("The data could be in a variety of formats. The bz2 format can be viewed with bzcat, gz format with zcat, and xz with xz -dc."),
+        radioButtons('dataFormat', 'Data format:', c('bz2', 'csv', 'gz', 'tsv', 'xz'), inline = TRUE),
+        downloadButton("download", "Download")
+      ),
       tabItem(tabName = "Model",
         h2("Model specification"),
-        p("In the model, a status (event, censored) and a time variable together with some covariate(s) are necessary in order to fit a Cox model"),
+        p("A status (event, censored) and a time variable together with some covariate(s) are necessary in order to fit a survival model."),
         uiOutput("status"),
         uiOutput("time"),
         uiOutput("covariates"),
         checkboxInput("summary", "Summary of the model", TRUE)
-      ),
-      tabItem(tabName = "Download",
-        h2("Download a tsv version of the data"),
-        helpText("The data may have been modified or new results."),
-        downloadButton("download", "Download")
       ),
       tabItem(tabName = "Report",
         helpText("We illustrate with Kaplan-Meier curve, followed by Cox model."),
@@ -63,7 +64,7 @@ ui <- dashboardPage(
         verbatimTextOutput("coxfit"),
         h3("Model fit summary"),
         verbatimTextOutput("fit"),
-        radioButtons('format', 'Report document format:', c('PDF', 'HTML', 'Word'), inline = TRUE),
+        radioButtons('reportFormat', 'Report document format:', c('PDF', 'HTML', 'Word'), inline = TRUE),
         downloadButton("report", "Download report")
       )
     )
