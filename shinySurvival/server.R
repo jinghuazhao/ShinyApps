@@ -44,6 +44,10 @@ server <- function(input, output) {
   output$km_caption <- renderText({km_formulaText()})
   output$km <- renderPlot({plot(survfit(as.formula(km_formulaText()), data = data()), xlab = "Time",
                                 ylab = "Overall survival probability", main = km_formulaText())})
+  km_formulaText_strata <- reactive({paste("Surv(",input$time, ",", input$status, ") ~ ", input$strata)})
+  output$km_caption_strata <- renderText({km_formulaText_strata()})
+  fit <- reactive({survfit(as.formula(km_formulaText_strata()), data = data())})
+  output$km_strata <- renderPlot({ggsurvplot(fit(), data = data(), pval = TRUE, pval.method = TRUE)})
   cox_formulaText <- reactive({paste("Surv(",input$time, ",", input$status, ") ~ ", covariates())})
   output$cox_caption <- renderText({cox_formulaText()})
   coxfit <- reactive({coxph(as.formula(cox_formulaText()), data=data())})

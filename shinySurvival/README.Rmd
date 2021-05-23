@@ -38,8 +38,31 @@ This is a file containing the commands and plots. For the current example, we ha
 
 ## Kaplan-Meier curve
 
+These were from vignettes of the survminer package.
+
 ```{r km, fig.height=6.5, fig.width=6.5, echo=FALSE}
 plot(survfit(Surv(time, status) ~ 1, data = lung), xlab = "Time",  ylab = "Overall survival probability")
+library(survminer)
+fit <- survfit(Surv(time, status) ~ sex, data = lung)
+ggsurvplot(fit, data = lung, pval = TRUE, pval.method = TRUE) + ggtitle("Log-rank (survdiff)")
+ggsurvplot(fit, data = lung, pval = TRUE, pval.method = TRUE,
+           log.rank.weights = "1") + ggtitle("Log-rank (comp)")
+ggsurvplot(fit, data = lung, pval = TRUE, pval.method = TRUE,
+           log.rank.weights = "n", pval.method.coord = c(5, 0.1),
+           pval.method.size = 3) + ggtitle("Gehan-Breslow (generalized Wilcoxon)")
+ggsurvplot(fit, data = lung, pval = TRUE, pval.method = TRUE,
+           log.rank.weights = "sqrtN", pval.method.coord = c(3, 0.1),
+           pval.method.size = 4) + ggtitle("Tharone-Ware")
+ggsurvplot(fit, data = lung, pval = TRUE, pval.method = TRUE,
+           log.rank.weights = "S1", pval.method.coord = c(5, 0.1),
+           pval.method.size = 3) + ggtitle("Peto-Peto’s modified survival estimate")
+ggsurvplot(fit, data = lung, pval = TRUE, pval.method = TRUE,
+           log.rank.weights = "S2", pval.method.coord = c(5, 0.1),
+           pval.method.size = 3) + ggtitle("modified Peto-Peto’s (by Andersen)")
+ggsurvplot(fit, data = lung, pval = TRUE, pval.method = TRUE,
+           log.rank.weights = "FH_p=1_q=1",
+           pval.method.coord = c(5, 0.1),
+           pval.method.size = 4) + ggtitle("Fleming-Harrington (p=1, q=1)")
 ```
 
 ## Cox survival curve
@@ -58,7 +81,6 @@ new_df <- with(lung,
                )
 )
 
-library(survminer)
 fit <- survfit(coxfit, newdata = new_df)
 ggsurvplot(fit, conf.int = TRUE, palette = "Dark2", censor = FALSE,
            surv.median.line = "hv", data=lung)

@@ -59,6 +59,8 @@ ui <- dashboardPage(
         helpText("We illustrate with Kaplan-Meier curve, followed by Cox model."),
         h3(textOutput("km_caption")),
         plotOutput("km"),
+        h3(textOutput("km_caption_strata")),
+        plotOutput("km_strata"),
         h3(textOutput("cox_caption")),
         plotOutput("cox"),
         h3("Cox model summary"),

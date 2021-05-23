@@ -14,6 +14,11 @@ plot(survfit(as.formula(km_formulaText()), data = data()),
              xlab = "Time",
              ylab = "Overall survival probability", main=km_formulaText()
 )
+
+library(survminer)
+#ggsurvplot(survfit(as.formula(km_formulaText_strata()), data = data()),
+#           pval = TRUE, pval.method = TRUE) +
+#ggtitle("Survival probabilities by stratum")
 ```
 
 # The Cox model
@@ -32,7 +37,6 @@ if (grepl(strata(), covariates()))
   )
   new_df
 
-  library(survminer)
   fit <- survfit(coxfit, newdata = new_df)
   if (input$summary) print(summary(fit))
   ggsurvplot(fit, conf.int = TRUE, palette = "Dark2", censor = FALSE,
