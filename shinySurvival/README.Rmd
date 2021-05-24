@@ -95,9 +95,8 @@ unlink("lung.csv")
 
 ## Appendix:
 
-The quotation here is from [the survminer vignette](https://cran.r-project.org/web/packages/survminer/vignettes/Specifiying_weights_in_log-rank_comparisons.html).
 
-> # Log-rank statistic for 2 groups
+> # Log-rank statistic for 2 groups ([survminer vignette](https://cran.r-project.org/web/packages/survminer/vignettes/Specifiying_weights_in_log-rank_comparisons.html))
 > 
 > 
 > As it is stated in the literature, the Log-rank test for comparing survival (estimates of survival curves) in 2 groups ($A$ and $B$) is based on the below statistic
@@ -142,4 +141,3 @@ The quotation here is from [the survminer vignette](https://cran.r-project.org/w
 > 
 > The regular Log-rank test is sensitive to detect differences in late survival times, where Gehan-Breslow and Tharone-Ware propositions might be used if one is interested in early differences in survival times. Peto-Peto modifications are also useful in early differences and are more robust (than Tharone-Whare or Gehan-Breslow) for situations where many observations are censored. The most flexible is Fleming-Harrington method for weights, where high `p` indicates detecting early differences and high `q` indicates detecting differences in late survival times. But there is always an issue on how to detect `p` and `q`.
 > 
-
