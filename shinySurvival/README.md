@@ -31,7 +31,7 @@ This is a file containing the commands and plots. For the current example, we ha
 
 ## Kaplan-Meier curve
 
-These were from vignettes of the [survminer](https://CRAN.R-project.org/package=survminer) package.
+These were from vignettes of the [survminer](https://CRAN.R-project.org/package=survminer) package. Note most of them are NOT implemented here.
 
 <img src="www/km-1.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-2.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-3.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-4.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-5.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-6.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-7.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-8.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" />
 
