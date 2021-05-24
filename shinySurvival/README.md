@@ -41,10 +41,9 @@ These were from vignettes of the [survminer](https://CRAN.R-project.org/package=
 
 ---
 
-## Appendix:
+## Appendix ([survminer vignette](https://cran.r-project.org/web/packages/survminer/vignettes/Specifiying_weights_in_log-rank_comparisons.html))
 
-
-> # Log-rank statistic for 2 groups ([survminer vignette](https://cran.r-project.org/web/packages/survminer/vignettes/Specifiying_weights_in_log-rank_comparisons.html))
+> # Log-rank statistic for 2 groups
 > 
 > 
 > As it is stated in the literature, the Log-rank test for comparing survival (estimates of survival curves) in 2 groups ($A$ and $B$) is based on the below statistic
