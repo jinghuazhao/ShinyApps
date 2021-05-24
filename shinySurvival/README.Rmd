@@ -2,8 +2,8 @@ This is a very early attempt to seed Shiny projects whose source code is availab
 
 [https://github.com/jinghuazhao/ShinyApps/](https://github.com/jinghuazhao/ShinyApps/)
 
-It would however be appropriate for clinicians who know the concepts of survival analysis frequently encountered in clinical trials but 
-may feel difficult with use of statistical packages such as SAS, Stata or R.
+It would however be appropriate for clinicians who know the concepts of survival analysis in clinical trials but nevertheless find difficulties with 
+use of statistical packages such as SAS, Stata or R.
 
 An end-user can upload his/her own data for analysis and download the analysis report. The following aspects are experimented with data from 
 R/survival package as follows:

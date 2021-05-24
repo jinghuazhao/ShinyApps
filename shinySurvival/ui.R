@@ -28,7 +28,9 @@ ui <- dashboardPage(
                       div(class = "box box-primary", style = "padding-right: 5%; padding-left: 5%; font-size:100%", NULL,
                           div(class = "box-body", shiny::includeMarkdown("README.md"))
                       )
-                 )
+                 ),
+         withMathJax(),
+         helpText("")
          )
       ),
       tabItem(tabName = "Data",
