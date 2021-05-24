@@ -51,7 +51,7 @@ server <- function(input, output) {
   cox_formulaText <- reactive({paste("Surv(",input$time, ",", input$status, ") ~ ", covariates())})
   output$cox_caption <- renderText({cox_formulaText()})
   coxfit <- reactive({coxph(as.formula(cox_formulaText()), data=data())})
-  output$coxfit <- renderPrint({if(input$summary) summary(coxfit()) else print("Not selected")})
+  output$coxfit <- renderPrint({if (input$summary) summary(coxfit())})
   new_df <- reactive({with(data(), {
                            grp <- unique(sort(data()[[strata()]]))
                            data.frame(distinct(data()[strata()]),
@@ -59,7 +59,7 @@ server <- function(input, output) {
                            )})
                      })
   fit <- reactive({survfit(coxfit(), newdata = new_df())})
-  output$fit <- renderPrint({if (input$summary) summary(fit()) else print("Not selected")})
+  output$fit <- renderPrint({if (input$summary) summary(fit())})
   output$cox <- renderPlot({ggsurvplot(fit(), conf.int = TRUE, palette = "Dark2", censor = FALSE,
                                        surv.median.line = "hv", data=data()) + ggtitle(cox_formulaText())})
   output$report <- downloadHandler(
@@ -73,7 +73,12 @@ server <- function(input, output) {
       owd <- setwd(tempdir())
       on.exit(setwd(owd))
       file.copy(src, 'report.Rmd', overwrite = TRUE)
-      out <- render('report.Rmd', switch(input$reportFormat, PDF = pdf_document(), HTML = html_document(), Word = word_document()))
+      params <- list(data=data(), status=status(), time=time(), covariates=covariates(), strata=strata(),
+                     printSummary=renderText(reactive({input$summary})),
+                     km_formulaText=km_formulaText(),km_formulaText_strata=km_formulaText_strata(),cox_formulaText=cox_formulaText())
+      out <- render('report.Rmd', switch(input$reportFormat, PDF = pdf_document(), HTML = html_document(), Word = word_document()),
+                    params = params,
+                    envir = new.env(parent = globalenv()))
       file.rename(out, file)
     }
   )

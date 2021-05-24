@@ -1,0 +1,64 @@
+---
+title: "Analysis report"
+params:
+    data: NA
+    status: NA
+    time: NA
+    covariates: NA
+    strata: NA
+    printSummary: NA
+    km_formulaText: NA
+    km_formulaText_strata: NA
+    cox_formulaText: NA
+---
+
+# The data structure
+
+```{r, echo=FALSE}
+library(survival)
+library(survminer)
+knitr::kable(head(data()),caption="The header")
+attach(params)
+data <- data
+status <- status
+time <- time
+covariates <- covariates
+strata <- strata
+printSummary <- printSummary
+km_formulaText <- km_formulaText
+km_formulaText_strata <- km_formulaText_strata
+cox_formulaText <- cox_formulaText
+detach(params)
+```
+
+# The Kaplan-Meier curve
+
+The overal survival probability can be seen from the Kaplan-Meier curve.
+
+```{r km, fig.height=6.5, fig.width=6.5, echo=FALSE}
+fit <- survfit(as.formula(km_formulaText), data=data)
+plot(fit, xlab="Time", ylab="Overall survival probability", main=km_formulaText)
+fit <- survfit(as.formula(km_formulaText_strata), data=data)
+ggsurvplot(fit, data=data, pval=TRUE, pval.method=TRUE) + ggtitle("Log-rank (survdiff)")
+```
+
+# The Cox model
+
+```{r cox, fig.height=6.5, fig.width=6.5, message=FALSE, echo=FALSE}
+coxfit <- coxph(as.formula(cox_formulaText), data = data)
+
+if (grepl(strata, covariates))
+{
+  new_df <- with(data, {
+                 grp <- unique(sort(data[[strata]]))
+                 data.frame(distinct(data[strata]),
+                            as.data.frame(lapply(apply(data[setdiff(names(data),strata)],2,mean,na.rm=TRUE),rep,length(grp)))
+                 )}
+  )
+  new_df
+
+  fit <- survfit(coxfit, newdata = new_df)
+  ggsurvplot(fit, conf.int = TRUE, palette = "Dark2", censor = FALSE,
+             surv.median.line = "hv", data=data) + ggtitle(cox_formulaText)
+}
+```
