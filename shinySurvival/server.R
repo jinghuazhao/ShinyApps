@@ -1,18 +1,19 @@
 server <- function(input, output) {
 # Data
   data <- reactive({
+    if(input$example) survival::lung else {
     req(input$file)
     ext <- tools::file_ext(input$file$name)
     switch(ext,
       csv = vroom::vroom(input$file$datapath, delim = ","),
       tsv = vroom::vroom(input$file$datapath, delim = "\t"),
       validate("Invalid file; Please upload a .csv or .tsv file")
-    )
+    )}
   })
   output$preview <- renderTable({head(data())})
 # Download
   output$download <- downloadHandler(
-    filename = function() {paste(tools::file_path_sans_ext(input$file), sep=".",
+    filename = function() {paste(ifelse(input$example,"lung",tools::file_path_sans_ext(input$file)), sep=".",
                            switch(input$dataFormat, bz2="bz2",
                                                     csv="csv",
                                                     gz="gz",
