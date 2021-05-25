@@ -64,22 +64,22 @@ plot(survfit(Surv(time, status) ~ sex, data = lung), conf.int=0.95,
              xlab = "Time", ylab = "Stratified survival probabilities", main = "Surv(time,status)~sex")
 library(survminer)
 fit <- survfit(Surv(time, status) ~ sex, data = lung)
-ggsurvplot(fit, data = lung, pval = TRUE, pval.method = TRUE) + ggtitle("Log-rank (survdiff)")
-ggsurvplot(fit, data = lung, pval = TRUE, pval.method = TRUE,
+ggsurvplot(fit, data = lung, conf.int = TRUE, pval = TRUE, pval.method = TRUE) + ggtitle("Log-rank (survdiff)")
+ggsurvplot(fit, data = lung, conf.int = TRUE, pval = TRUE, pval.method = TRUE,
            log.rank.weights = "1") + ggtitle("Log-rank (comp)")
-ggsurvplot(fit, data = lung, pval = TRUE, pval.method = TRUE,
+ggsurvplot(fit, data = lung, conf.int = TRUE, pval = TRUE, pval.method = TRUE,
            log.rank.weights = "n", pval.method.coord = c(5, 0.1),
            pval.method.size = 3) + ggtitle("Gehan-Breslow (generalized Wilcoxon)")
-ggsurvplot(fit, data = lung, pval = TRUE, pval.method = TRUE,
+ggsurvplot(fit, data = lung, conf.int = TRUE, pval = TRUE, pval.method = TRUE,
            log.rank.weights = "sqrtN", pval.method.coord = c(3, 0.1),
            pval.method.size = 4) + ggtitle("Tharone-Ware")
-ggsurvplot(fit, data = lung, pval = TRUE, pval.method = TRUE,
+ggsurvplot(fit, data = lung, conf.int = TRUE, pval = TRUE, pval.method = TRUE,
            log.rank.weights = "S1", pval.method.coord = c(5, 0.1),
            pval.method.size = 3) + ggtitle("Peto-Peto’s modified survival estimate")
-ggsurvplot(fit, data = lung, pval = TRUE, pval.method = TRUE,
+ggsurvplot(fit, data = lung, conf.int = TRUE, pval = TRUE, pval.method = TRUE,
            log.rank.weights = "S2", pval.method.coord = c(5, 0.1),
            pval.method.size = 3) + ggtitle("modified Peto-Peto’s (by Andersen)")
-ggsurvplot(fit, data = lung, pval = TRUE, pval.method = TRUE,
+ggsurvplot(fit, data = lung, conf.int = TRUE, pval = TRUE, pval.method = TRUE,
            log.rank.weights = "FH_p=1_q=1",
            pval.method.coord = c(5, 0.1),
            pval.method.size = 4) + ggtitle("Fleming-Harrington (p=1, q=1)")
