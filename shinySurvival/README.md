@@ -1,3 +1,17 @@
+---
+title: Shiny for survival analysis
+output:
+  html_document:
+    mathjax:  default
+    fig_caption:  true
+    toc: true
+    section_numbering: true
+    css: ggsci.css
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Specifiyng weights in Log-rank comparisons}
+---
+
 This is a very early attempt to seed Shiny projects whose source code is available from
 
 [https://github.com/jinghuazhao/ShinyApps/](https://github.com/jinghuazhao/ShinyApps/)
@@ -11,7 +25,6 @@ R/survival package as follows:
 ```r
 library(survival)
 write.csv(survival::lung,file="lung.csv",quote=FALSE,row.names=FALSE)
-```
 
 # Data
 

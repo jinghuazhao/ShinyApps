@@ -29,15 +29,14 @@ ui <- dashboardPage(
                           div(class = "box-body", shiny::includeMarkdown("README.md"))
                       )
                  ),
-         withMathJax(),
-         helpText("")
+         withMathJax()
          )
       ),
       tabItem(tabName = "Data",
         h2("Upload a csv or tsv file"),
         fluidRow(
           fileInput("file", NULL, accept = c(".csv", ".tsv")),
-          checkboxInput("example", "Example data", TRUE),
+          checkboxInput("example", "Load example data", FALSE),
           tableOutput("files"),
           helpText("The first few lines are given as follows,"),
           tableOutput("preview")
