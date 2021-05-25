@@ -5,10 +5,10 @@ account: jinghuazhao
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4144910
-bundleId: 4639185
+bundleId: 4639223
 url: https://jinghuazhao.shinyapps.io/shinysurvival/
-when: 1621975800.44976
-lastSyncTime: 1621975800.4498
+when: 1621976861.54064
+lastSyncTime: 1621976861.54066
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: test

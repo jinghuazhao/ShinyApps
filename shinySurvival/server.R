@@ -15,7 +15,6 @@ server <- function(input, output) {
   output$download <- downloadHandler(
     filename = function() {paste(ifelse(input$example,"lung",tools::file_path_sans_ext(input$file)), sep=".",
                            switch(input$dataFormat, bz2="bz2",
-                                                    csv="csv",
                                                     gz="gz",
                                                     tsv="tsv",
                                                     xz="xz"))},

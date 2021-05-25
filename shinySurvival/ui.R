@@ -47,7 +47,7 @@ ui <- dashboardPage(
       tabItem(tabName = "Download",
         h2("Download a specific version of the data"),
         helpText("The data could be in a variety of formats. The bz2 format can be viewed with bzcat, gz format with zcat, and xz with xz -dc."),
-        radioButtons('dataFormat', 'Data format:', c('bz2', 'csv', 'gz', 'tsv', 'xz'), inline = TRUE),
+        radioButtons('dataFormat', 'Data format:', c('bz2', 'gz', 'tsv', 'xz'), inline = TRUE),
         downloadButton("download", "Download")
       ),
       tabItem(tabName = "Model",
