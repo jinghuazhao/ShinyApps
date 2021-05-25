@@ -35,10 +35,13 @@ if (grepl(strata(), covariates()))
 {
   new_df <- with(data(), {
                  grp <- unique(sort(data()[[strata()]]))
-                 data.frame(distinct(data()[strata()]),
-                            as.data.frame(lapply(apply(data()[setdiff(names(data()),strata())],2,mean,na.rm=TRUE),rep,length(grp)))
-                 )}
-  )
+                 df <- data.frame(distinct(data()[strata()]),
+                                  as.data.frame(lapply(apply(data()[setdiff(names(data()),strata())],2,mean,na.rm=TRUE),rep,length(grp)))
+                       )
+                 rownames(df) <- df[[strata()]]
+                 df
+                 }
+                )
   new_df
 
   fit <- survfit(coxfit, newdata = new_df)

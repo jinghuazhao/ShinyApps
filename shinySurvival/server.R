@@ -68,9 +68,12 @@ server <- function(input, output) {
   output$coxfit <- renderPrint({if(input$summary) summary(coxfit()) else print("Not selected")})
   new_df <- reactive({with(data(), {
                            grp <- unique(sort(data()[[strata()]]))
-                           data.frame(distinct(data()[strata()]),
-                                      as.data.frame(lapply(apply(data()[setdiff(names(data()),strata())],2,mean,na.rm=TRUE),rep,length(grp)))
-                           )})
+                           df <- data.frame(distinct(data()[strata()]),
+                                            as.data.frame(lapply(apply(data()[setdiff(names(data()),strata())],2,mean,na.rm=TRUE),rep,length(grp)))
+                                 )
+                           rownames(df) <- df[[strata()]]
+                           df
+                           })
                      })
   fit <- reactive({survfit(coxfit(), newdata = new_df())})
   output$fit <- renderPrint({if (input$summary) summary(fit()) else print("Not selected")})
