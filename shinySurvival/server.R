@@ -65,7 +65,7 @@ server <- function(input, output) {
                                        surv.median.line = "hv", data=data()) + ggtitle(cox_formulaText())})
   output$report <- downloadHandler(
     filename = function() {
-      paste(tools::file_path_sans_ext(input$file), sep = ".", 
+      paste(ifelse(input$example,"lung",tools::file_path_sans_ext(input$file)), sep = ".", 
             switch(input$reportFormat, PDF = 'pdf', HTML = 'html', Word = 'docx')
       )
     },

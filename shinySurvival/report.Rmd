@@ -13,6 +13,8 @@ The overal survival probability can be seen from the Kaplan-Meier curve.
 ```{r km, fig.height=6.5, fig.width=6.5, echo=FALSE}
 fit <- survfit(as.formula(km_formulaText()), data = data())
 plot(fit, xlab = "Time", ylab = "Overall survival probability", main=km_formulaText())
+fit <- survfit(as.formula(km_formulaText_strata()), data = data())
+plot(fit, xlab = "Time", ylab = "Stratified survival probabilities", main=km_formulaText_strata())
 ```
 
 # The Cox model

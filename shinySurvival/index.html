@@ -1,0 +1,57 @@
+<p>This is a very early attempt to seed Shiny projects whose source code is available from</p>
+<p><a href="https://github.com/jinghuazhao/ShinyApps/">https://github.com/jinghuazhao/ShinyApps/</a></p>
+<p>It would however be appropriate for clinicians who know the concepts of survival analysis in clinical trials but nevertheless find difficulties with use of statistical packages such as SAS, Stata or R.</p>
+<p>An end-user can upload his/her own data for analysis and download the analysis report. The following aspects are experimented with data from R/survival package as follows:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(survival<span class="sc">::</span>lung,<span class="at">file=</span><span class="st">&quot;lung.csv&quot;</span>,<span class="at">quote=</span><span class="cn">FALSE</span>,<span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<h1 id="data">Data</h1>
+<p>This takes a local file in .csv or .tsv format, such as <code>lung.tsv</code> from above.</p>
+<h1 id="download">Download</h1>
+<p>The input data can be saved in a variety of format – is is actaully a template for downloading results.</p>
+<h1 id="model">Model</h1>
+<p>Once the data is uploaded, this defines the model as in the example.</p>
+<h1 id="report">Report</h1>
+<p>This is a file containing the commands and plots. For the current example, we have</p>
+<h2 id="kaplan-meier-curve">Kaplan-Meier curve</h2>
+<p>These were from vignettes of the <a href="https://CRAN.R-project.org/package=survminer">survminer</a> package. Note most of them are NOT implemented here.</p>
+<p><img src="www/km-1.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-2.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-3.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-4.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-5.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-6.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-7.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-8.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /></p>
+<h2 id="cox-survival-curve">Cox survival curve</h2>
+<p><img src="www/cox-1.png" title="plot of chunk cox" alt="plot of chunk cox" style="display:block; margin: auto" style="display: block; margin: auto;" /></p>
+<hr />
+<h2 id="appendix-survminer-vignette">Appendix (<a href="https://cran.r-project.org/web/packages/survminer/vignettes/Specifiying_weights_in_log-rank_comparisons.html">survminer vignette</a>)</h2>
+<blockquote>
+<h1 id="log-rank-statistic-for-2-groups">Log-rank statistic for 2 groups</h1>
+<p>As it is stated in the literature, the Log-rank test for comparing survival (estimates of survival curves) in 2 groups (<span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>) is based on the below statistic</p>
+<p><span class="math display">\[LR = \frac{U^2}{V} \sim \chi(1),\]</span></p>
+<p>where <span class="math display">\[U = \sum_{i=1}^{T}w_{t_i}(o_{t_i}^A-e_{t_i}^A), \ \ \ \ \ \ \ \ V = Var(U) = \sum_{i=1}^{T}(w_{t_i}^2\frac{n_{t_i}^An_{t_i}^Bo_{t_i}(n_{t_i}-o_{t_i})}{n_{t_i}^2(n_{t_i}-1)})\]</span> and</p>
+<ul>
+<li><span class="math inline">\(t_i\)</span> for <span class="math inline">\(i=1, \dots, T\)</span> are possible event times,</li>
+<li><span class="math inline">\(n_{t_i}\)</span> is the overall risk set size on the time <span class="math inline">\(t_i\)</span> (<span class="math inline">\(n_{t_i} = n_{t_i}^A+n_{t_i}^B\)</span>),</li>
+<li><span class="math inline">\(n_{t_i}^A\)</span> is the risk set size on the time <span class="math inline">\(t_i\)</span> in group <span class="math inline">\(A\)</span>,</li>
+<li><span class="math inline">\(n_{t_i}^B\)</span> is the risk set size on the time <span class="math inline">\(t_i\)</span> in group <span class="math inline">\(B\)</span>,</li>
+<li><span class="math inline">\(o_{t_i}\)</span> overall observed events in the time <span class="math inline">\(t_i\)</span> (<span class="math inline">\(o_{t_i} = o_{t_i}^A+o_{t_i}^B\)</span>),</li>
+<li><span class="math inline">\(o_{t_i}^A\)</span> observed events in the time <span class="math inline">\(t_i\)</span> in group <span class="math inline">\(A\)</span>,</li>
+<li><span class="math inline">\(o_{t_i}^B\)</span> observed events in the time <span class="math inline">\(t_i\)</span> in group <span class="math inline">\(B\)</span>,</li>
+<li><span class="math inline">\(e_{t_i}\)</span> number of overall expected events in the time <span class="math inline">\(t_i\)</span> (<span class="math inline">\(e_{t_i} = e_{t_i}^A+e_{t_i}^B\)</span>),</li>
+<li><span class="math inline">\(e_{t_i}^A\)</span> number of expected events in the time <span class="math inline">\(t_i\)</span> in group <span class="math inline">\(A\)</span>,</li>
+<li><span class="math inline">\(e_{t_i}^B\)</span> number of expected events in the time <span class="math inline">\(t_i\)</span> in group <span class="math inline">\(B\)</span>,</li>
+<li><span class="math inline">\(w_{t_i}\)</span> is a weight for the statistic,</li>
+</ul>
+<p>also remember about few notes</p>
+<p><span class="math display">\[e_{t_i}^A = n_{t_i}^A \frac{o_{t_i}}{n_{t_i}}, \ \ \ \ \ \ \ \ \ \  e_{t_i}^B = n_{t_i}^B \frac{o_{t_i}}{n_{t_i}},\]</span> <span class="math display">\[e_{t_i}^A + e_{t_i}^B = o_{t_i}^A + o_{t_i}^B\]</span></p>
+<p>that’s why we can substitute group <span class="math inline">\(A\)</span> with <span class="math inline">\(B\)</span> in <span class="math inline">\(U\)</span> and receive same results.</p>
+<h1 id="weighted-log-rank-extensions">Weighted Log-rank extensions</h1>
+<p>Regular Log-rank comparison uses <span class="math inline">\(w_{t_i} = 1\)</span> but many modifications to that approach have been proposed. The most popular modifications, called weighted Log-rank tests, are available in <code>?survMisc::comp</code></p>
+<ul>
+<li><code>n</code> Gehan and Breslow proposed to use <span class="math inline">\(w_{t_i} = n_{t_i}\)</span> (this is also called generalized Wilcoxon),</li>
+<li><code>srqtN</code> Tharone and Ware proposed to use <span class="math inline">\(w_{t_i} = \sqrt{n_{t_i}}\)</span>,</li>
+<li><code>S1</code> Peto-Peto’s modified survival estimate <span class="math inline">\(w_{t_i} = S1({t_i}) = \prod_{i=1}^{T}(1-\frac{e_{t_i}}{n_{t_i}+1})\)</span>,</li>
+<li><code>S2</code> modified Peto-Peto (by Andersen) <span class="math inline">\(w_{t_i} = S2({t_i}) = \frac{S1({t_i})n_{t_i}}{n_{t_i}+1}\)</span>,</li>
+<li><code>FH</code> Fleming-Harrington <span class="math inline">\(w_{t_i} = S(t_i)^p(1 - S(t_i))^q\)</span>.</li>
+</ul>
+<blockquote>
+<p>Watch out for <code>FH</code> as I <a href="https://github.com/dardisco/survMisc/issues/15">submitted an info on survMisc repository</a> where I think their mathematical notation is misleading for Fleming-Harrington.</p>
+</blockquote>
+<h2 id="why-are-they-useful">Why are they useful?</h2>
+<p>The regular Log-rank test is sensitive to detect differences in late survival times, where Gehan-Breslow and Tharone-Ware propositions might be used if one is interested in early differences in survival times. Peto-Peto modifications are also useful in early differences and are more robust (than Tharone-Whare or Gehan-Breslow) for situations where many observations are censored. The most flexible is Fleming-Harrington method for weights, where high <code>p</code> indicates detecting early differences and high <code>q</code> indicates detecting differences in late survival times. But there is always an issue on how to detect <code>p</code> and <code>q</code>.</p>
+</blockquote>
