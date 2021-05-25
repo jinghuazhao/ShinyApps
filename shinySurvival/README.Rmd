@@ -1,15 +1,14 @@
 ---
-title: Shiny for survival analysis
+title: Shiny for Survival analysis
 output:
   html_document:
     mathjax:  default
     fig_caption:  true
     toc: true
     section_numbering: true
-    css: ggsci.css
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{Specifiyng weights in Log-rank comparisons}
+  %\VignetteIndexEntry{Shiny for Survival analysis}
 ---
 
 This is a very early attempt to seed Shiny projects whose source code is available from
