@@ -9,6 +9,7 @@ output:
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Shiny for Survival analysis}
+  %\VignetteEncoding{UTF-8}
 ---
 
 This is a very early attempt to seed Shiny projects whose source code is available from
