@@ -41,14 +41,27 @@ server <- function(input, output) {
   covariates <- reactive({paste(input$covariates, collapse=" + ")})
   strata <- reactive({paste(input$strata)})
 # Report
+  # Kaplan-Meier curve
   km_formulaText <- reactive({paste("Surv(",input$time, ",", input$status, ") ~ 1")})
   output$km_caption <- renderText({km_formulaText()})
-  output$km <- renderPlot({plot(survfit(as.formula(km_formulaText()), data = data()), xlab = "Time",
-                                ylab = "Overall survival probability", main = km_formulaText())})
+  kmfit <- reactive({survfit(as.formula(km_formulaText()), data = data())})
+  output$km <- renderPlot({autoplot(kmfit())+
+                           ggplot2::theme_bw()+
+                           cowplot::theme_cowplot(12)+
+                           ggplot2::xlab("Time")+
+                           ggplot2::ylab("Overall survival probability")+
+                           ggplot2::ggtitle(km_formulaText())})
+  # Kaplan-Meier curve by strata
   km_formulaText_strata <- reactive({paste("Surv(",input$time, ",", input$status, ") ~ ", input$strata)})
   output$km_caption_strata <- renderText({km_formulaText_strata()})
-  fit <- reactive({survfit(as.formula(km_formulaText_strata()), data = data())})
-  output$km_strata <- renderPlot({ggsurvplot(fit(), data = data(), pval = TRUE, pval.method = TRUE)})
+  kmfit_strata <- reactive({survfit(as.formula(km_formulaText_strata()), data = data())})
+  output$km_strata <- renderPlot({autoplot(kmfit_strata())+
+                                  ggplot2::theme_bw()+
+                                  cowplot::theme_cowplot(12)+
+                                  ggplot2::xlab("Time")+
+                                  ggplot2::ylab("Stratified survival probabilities")+
+                                  ggplot2::ggtitle(km_formulaText_strata())})
+  # Cox survival curve
   cox_formulaText <- reactive({paste("Surv(",input$time, ",", input$status, ") ~ ", covariates())})
   output$cox_caption <- renderText({cox_formulaText()})
   coxfit <- reactive({coxph(as.formula(cox_formulaText()), data=data())})

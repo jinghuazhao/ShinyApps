@@ -1,4 +1,6 @@
+library(cowplot)
 library(dplyr)
+library(ggfortify)
 library(rmarkdown)
 library(shiny)
 library(shinydashboard)

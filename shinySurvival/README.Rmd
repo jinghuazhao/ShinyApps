@@ -59,7 +59,9 @@ These were from vignettes of the [survminer](https://CRAN.R-project.org/package=
 
 ```{r km, fig.height=6.5, fig.width=6.5, echo=FALSE, message=FALSE}
 plot(survfit(Surv(time, status) ~ 1, data = lung),
-             xlab = "Time", ylab = "Overall survival probability", main = "Overall survival probability")
+             xlab = "Time", ylab = "Overall survival probability", main = "Surv(time,status)~1")
+plot(survfit(Surv(time, status) ~ sex, data = lung), conf.int=0.95,
+             xlab = "Time", ylab = "Stratified survival probabilities", main = "Surv(time,status)~sex")
 library(survminer)
 fit <- survfit(Surv(time, status) ~ sex, data = lung)
 ggsurvplot(fit, data = lung, pval = TRUE, pval.method = TRUE) + ggtitle("Log-rank (survdiff)")
