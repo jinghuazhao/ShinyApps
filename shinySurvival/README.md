@@ -2,11 +2,10 @@
 title: Shiny for Survival analysis
 output:
   html_document:
-    mathjax:  true
+    mathjax:  default
     fig_caption:  true
     toc: true
     section_numbering: true
-    css: ggsci.css
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Shiny for Survival analysis}
