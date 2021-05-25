@@ -15,4 +15,4 @@ git push
 # shiny::runApp()
 # rsconnect::deployApp(forceUpdate=TRUE, logLevel="quiet")
 # Rscript -e "knitr::knit('README.Rmd')"
-# pandoc README.md --mathjax -o index.html
+# pandoc README.md --mathjax -s -o index.html
