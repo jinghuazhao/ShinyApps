@@ -35,8 +35,8 @@ ui <- dashboardPage(
       tabItem(tabName = "Data",
         h2("Upload a csv or tsv file"),
         fluidRow(
-          fileInput("file", NULL, accept = c(".csv", ".tsv")),
           checkboxInput("example", "Load example data", FALSE),
+          fileInput("file", NULL, accept = c(".csv", ".tsv")),
           tableOutput("files"),
           helpText("The first few lines are given as follows,"),
           tableOutput("preview")
