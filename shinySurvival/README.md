@@ -1,3 +1,18 @@
+---
+title: Shiny for Survival analysis
+output:
+  html_document:
+    mathjax:  true
+    fig_caption:  true
+    toc: true
+    section_numbering: true
+    css: ggsci.css
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Shiny for Survival analysis}
+  %\VignetteEncoding{UTF-8}
+---
+
 This is a very early attempt to seed Shiny projects whose source code is available from
 
 [https://github.com/jinghuazhao/ShinyApps/](https://github.com/jinghuazhao/ShinyApps/)
