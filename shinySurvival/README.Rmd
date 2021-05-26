@@ -62,7 +62,18 @@ plot(survfit(Surv(time, status) ~ 1, data = lung),
              xlab = "Time", ylab = "Overall survival probability", main = "Surv(time,status)~1")
 plot(survfit(Surv(time, status) ~ sex, data = lung), conf.int=0.95,
              xlab = "Time", ylab = "Stratified survival probabilities", main = "Surv(time,status)~sex")
+```
+It is harder to differentiate the two-group curves and we resort to `survminer` instead.
+```{r sm, fig.height=6.5, fig.width=6.5, echo=FALSE, message=FALSE}
 library(survminer)
+ggsurvplot(survfit(Surv(time, status) ~ 1, data = lung), data=lung, conf.int=TRUE) +
+xlab("Time") +
+ylab("Overall survival probability") +
+ggtitle("Surv(time,status)~1")
+ggsurvplot(survfit(Surv(time, status) ~ sex, data = lung), data=lung, conf.int=TRUE) +
+xlab("Time") +
+ylab("Stratified survival probabilities") +
+ggtitle("Surv(time,status)~sex")
 fit <- survfit(Surv(time, status) ~ sex, data = lung)
 ggsurvplot(fit, data = lung, conf.int = TRUE, pval = TRUE, pval.method = TRUE) + ggtitle("Log-rank (survdiff)")
 ggsurvplot(fit, data = lung, conf.int = TRUE, pval = TRUE, pval.method = TRUE,

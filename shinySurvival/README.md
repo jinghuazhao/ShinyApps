@@ -22,6 +22,9 @@ use of statistical packages such as SAS, Stata or R.
 An end-user can upload his/her own data for analysis and download the analysis report. The following aspects are experimented with data from 
 R/survival package as follows:
 
+
+
+
 ```r
 library(survival)
 write.csv(survival::lung,file="lung.csv",quote=FALSE,row.names=FALSE)
@@ -47,9 +50,12 @@ This is a file containing the commands and plots. For the current example, we ha
 
 These were from vignettes of the [survminer](https://CRAN.R-project.org/package=survminer) package. Note most of them are NOT implemented here.
 
-<img src="www/km-1.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-2.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-3.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-4.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-5.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-6.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-7.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-8.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-9.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" />
+<img src="www/km-1.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/km-2.png" title="plot of chunk km" alt="plot of chunk km" style="display:block; margin: auto" style="display: block; margin: auto;" />
+It is harder to differentiate the two-group curves and we resort to `survminer` instead.
+<img src="www/sm-1.png" title="plot of chunk sm" alt="plot of chunk sm" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/sm-2.png" title="plot of chunk sm" alt="plot of chunk sm" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/sm-3.png" title="plot of chunk sm" alt="plot of chunk sm" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/sm-4.png" title="plot of chunk sm" alt="plot of chunk sm" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/sm-5.png" title="plot of chunk sm" alt="plot of chunk sm" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/sm-6.png" title="plot of chunk sm" alt="plot of chunk sm" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/sm-7.png" title="plot of chunk sm" alt="plot of chunk sm" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/sm-8.png" title="plot of chunk sm" alt="plot of chunk sm" style="display:block; margin: auto" style="display: block; margin: auto;" /><img src="www/sm-9.png" title="plot of chunk sm" alt="plot of chunk sm" style="display:block; margin: auto" style="display: block; margin: auto;" />
 
 ## Cox survival curve
+
 
 <img src="www/cox-1.png" title="plot of chunk cox" alt="plot of chunk cox" style="display:block; margin: auto" style="display: block; margin: auto;" />
 
