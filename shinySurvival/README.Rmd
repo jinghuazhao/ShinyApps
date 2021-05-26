@@ -74,6 +74,9 @@ ggsurvplot(survfit(Surv(time, status) ~ sex, data = lung), data=lung, conf.int=T
 xlab("Time") +
 ylab("Stratified survival probabilities") +
 ggtitle("Surv(time,status)~sex")
+```
+We carry on with all those `survminer`'s vignettes.
+```{r smvig, fig.height=6.5, fig.width=6.5, echo=FALSE, message=FALSE}
 fit <- survfit(Surv(time, status) ~ sex, data = lung)
 ggsurvplot(fit, data = lung, conf.int = TRUE, pval = TRUE, pval.method = TRUE) + ggtitle("Log-rank (survdiff)")
 ggsurvplot(fit, data = lung, conf.int = TRUE, pval = TRUE, pval.method = TRUE,
